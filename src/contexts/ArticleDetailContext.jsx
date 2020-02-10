@@ -7,10 +7,6 @@ class ArticleDetailProvider extends Component {
     article: {}
   };
 
-  handleClick = event => {
-    console.log(event);
-  };
-
   render() {
     return (
       <ArticleDetailContext.Provider value={{ ...this.state }}>

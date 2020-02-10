@@ -1,10 +1,23 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import ArticleCard from "./ArticleCard";
-import ArticleDetail from "./ArticleDetail";
-// import { ArticlesContext } from "../contexts/ArticlesContext";
-import { Router, Link } from "@reach/router";
+
 import * as api from "../utils/api";
+
+// COMPONENT STYLING
+const MainStyled = styled.main`
+  /* MOBILE */
+  width: 80%;
+  margin: 0 auto;
+  background-color: #407d90;
+  height: 100%;
+`;
+
+const MainListH1 = styled.h1`
+  /* MOBILE */
+  text-align: center;
+  color: white;
+`;
 
 class ArticlesList extends Component {
   state = {
@@ -27,37 +40,18 @@ class ArticlesList extends Component {
   };
 
   fetchArticles = () => {
-    const { sortBy } = this.state.query;
-    console.log(sortBy, "<<<<<<<<<<<<<<<<<<<<<<");
     api.getArticles(this.props, this.state.query).then(articles => {
       this.setState({ articles });
     });
   };
 
   handleChange = ({ target: { value, id } }) => {
-    this.setState({ query: { [id]: value } }, () => {
-      console.log(this.state, "<<<<<<<");
-    });
+    this.setState({ query: { [id]: value } });
   };
 
   render() {
-    const MainStyled = styled.main`
-      /* MOBILE */
-      width: 80%;
-      margin: 0 auto;
-      background-color: #407d90;
-      height: 100%;
-    `;
-
-    const MainListH1 = styled.h1`
-      /* MOBILE */
-      text-align: center;
-      color: white;
-    `;
-
     return (
       <MainStyled>
-        {console.log(this.props, "<<<<<")}
         <MainListH1>Articles </MainListH1>
 
         <form>

@@ -1,10 +1,21 @@
 import React, { Component } from "react";
 import * as api from "../utils/api";
-import { Links, Router } from "@reach/router";
 import styled from "styled-components";
 import TopicCard from "../components/TopicCard";
-import ArticlesList from "../components/ArticlesList";
-import { ArticlesContext } from "../contexts/ArticlesContext";
+
+const MainStyled = styled.main`
+  /* MOBILE */
+  width: 80%;
+  margin: 0 auto;
+  background-color: #407d90;
+  height: 100%;
+`;
+
+const MainListH1 = styled.h1`
+  /* MOBILE */
+  text-align: center;
+  color: white;
+`;
 
 class TopicsList extends Component {
   state = {
@@ -13,27 +24,11 @@ class TopicsList extends Component {
 
   componentDidMount() {
     api.getAllTopics().then(topics => {
-      this.setState({ topics }, () => {
-        console.log(this.state, "FROM TOPICS");
-      });
+      this.setState({ topics });
     });
   }
 
   render() {
-    const MainStyled = styled.main`
-      /* MOBILE */
-      width: 80%;
-      margin: 0 auto;
-      background-color: #407d90;
-      height: 100%;
-    `;
-
-    const MainListH1 = styled.h1`
-      /* MOBILE */
-      text-align: center;
-      color: white;
-    `;
-
     const { topics } = this.state;
 
     return (

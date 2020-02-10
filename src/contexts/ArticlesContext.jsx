@@ -24,15 +24,9 @@ class ArticlesContextProvider extends Component {
     axios
       .get("https://domh-be-nc-news.herokuapp.com/api/articles?limit=100")
       .then(({ data }) => {
-        this.setState({ articles: data.articles }, () => {
-          console.log(this.state);
-        });
+        this.setState({ articles: data.articles });
       });
   };
-
-  // handleClick = event => {
-  //   console.log(event);
-  // };
 
   render() {
     return (
