@@ -15,13 +15,12 @@ class App extends Component {
       <AppStyles>
         <Title />
         <NavBar />
-        <ArticlesContextProvider>
-          <Router>
-            <ArticlesList path="/" />
-            <TopicsList path="/topics" />
-            <ArticlesList path="/topics/:slug" />
-          </Router>
-        </ArticlesContextProvider>
+        <Router>
+          <ArticlesList path="/" />
+          <ArticlesList path="/:article_id" />
+          <ArticlesList path="/topics/:slug/articles" />
+          <TopicsList path="/topics" />
+        </Router>
       </AppStyles>
     );
   }

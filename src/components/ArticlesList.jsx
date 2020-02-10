@@ -23,8 +23,17 @@ class ArticlesList extends Component {
 
   componentDidMount = () => {
     // Get all available articles ignoring default limit
+    this.fetchArticles();
+  };
 
-    api.getArticles().then(articles => {
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps !== this.props) {
+      this.fetchArticles(this.props);
+    }
+  };
+
+  fetchArticles = () => {
+    api.getArticles(this.props).then(articles => {
       this.setState({ articles });
     });
   };
@@ -46,8 +55,8 @@ class ArticlesList extends Component {
 
     return (
       <MainStyled>
-        <MainListH1>Articles </MainListH1>
         {console.log(this.props, "<<<<<")}
+        <MainListH1>Articles </MainListH1>
         {this.state.articles.map(article => {
           return <ArticleCard key={article.article_id} {...article} />;
         })}
