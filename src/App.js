@@ -17,7 +17,6 @@ class App extends Component {
         <NavBar />
         <Router>
           <ArticlesList path="/" />
-          <ArticlesList path="/:article_id" />
           <ArticlesList path="/topics/:slug/articles" />
           <TopicsList path="/topics" />
         </Router>

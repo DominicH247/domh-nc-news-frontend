@@ -1,10 +1,10 @@
 const axios = require("axios");
 
 const getArticles = ({ slug, article_id }) => {
-  console.log(slug, article_id, "<<<<");
+  console.log(article_id, "<<<< GET ARTICLES");
   return axios
-    .get("https://domh-be-nc-news.herokuapp.com/api/articles?limit=100", {
-      params: { topic: slug, article_id }
+    .get("https://domh-be-nc-news.herokuapp.com/api/articles", {
+      params: { topic: slug, article_id: article_id }
     })
     .then(({ data: { articles } }) => {
       return articles;

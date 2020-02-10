@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import ArticleCard from "./ArticleCard";
+import ArticleDetail from "./ArticleDetail";
 // import { ArticlesContext } from "../contexts/ArticlesContext";
-// import { Router } from "@reach/router";
+import { Router } from "@reach/router";
 import * as api from "../utils/api";
 
 class ArticlesList extends Component {
@@ -60,6 +61,10 @@ class ArticlesList extends Component {
         {this.state.articles.map(article => {
           return <ArticleCard key={article.article_id} {...article} />;
         })}
+
+        <Router>
+          <ArticleDetail path="/articles/:article_id" />
+        </Router>
       </MainStyled>
     );
   }

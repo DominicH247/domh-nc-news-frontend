@@ -1,8 +1,9 @@
 import React from "react";
 // import { ArticleDetailContext } from "../contexts/ArticleDetailContext";
+import { Link } from "@reach/router";
 import styled from "styled-components";
 
-const ArticleCard = ({ topic, title, author, created_at }) => {
+const ArticleCard = ({ topic, title, author, created_at, article_id }) => {
   const ArticleCardDiv = styled.div`
     /* MOBILE */
     background-color: #376b7b;
@@ -16,13 +17,15 @@ const ArticleCard = ({ topic, title, author, created_at }) => {
   `;
 
   return (
-    <ArticleCardDiv>
-      t/ {topic} <br />
-      Posted by /u {author} <br />
-      {title} <br />
-      At {created_at}
-      <br />
-    </ArticleCardDiv>
+    <Link to={`/articles/${article_id}`}>
+      <ArticleCardDiv>
+        t/ {topic} <br />
+        Posted by /u {author} <br />
+        {title} <br />
+        At {created_at}
+        <br />
+      </ArticleCardDiv>
+    </Link>
   );
 };
 
