@@ -8,7 +8,8 @@ import * as api from "../utils/api";
 
 class ArticlesList extends Component {
   state = {
-    articles: []
+    articles: [],
+    query: { sortBy: undefined, order: "asc" }
   };
 
   componentDidMount = () => {
@@ -20,11 +21,22 @@ class ArticlesList extends Component {
     if (prevProps !== this.props) {
       this.fetchArticles(this.props);
     }
+    if (prevState.query !== this.state.query) {
+      this.fetchArticles();
+    }
   };
 
   fetchArticles = () => {
-    api.getArticles(this.props).then(articles => {
+    const { sortBy } = this.state.query;
+    console.log(sortBy, "<<<<<<<<<<<<<<<<<<<<<<");
+    api.getArticles(this.props, this.state.query).then(articles => {
       this.setState({ articles });
+    });
+  };
+
+  handleChange = ({ target: { value, id } }) => {
+    this.setState({ query: { [id]: value } }, () => {
+      console.log(this.state, "<<<<<<<");
     });
   };
 
@@ -51,7 +63,11 @@ class ArticlesList extends Component {
         <form>
           <label>
             Sort-by:
-            <select>
+            <select
+              id="sortBy"
+              onChange={this.handleChange}
+              value={this.state.query.sortBy}
+            >
               <option value="created_at">created at</option>
               <option value="comment_count">comments</option>
               <option value="votes">votes</option>

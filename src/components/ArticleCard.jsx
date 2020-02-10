@@ -3,7 +3,15 @@ import React from "react";
 import { Link } from "@reach/router";
 import styled from "styled-components";
 
-const ArticleCard = ({ topic, title, author, created_at, article_id }) => {
+const ArticleCard = ({
+  topic,
+  title,
+  author,
+  created_at,
+  article_id,
+  comment_count,
+  votes
+}) => {
   const ArticleCardDiv = styled.div`
     /* MOBILE */
     background-color: #376b7b;
@@ -23,6 +31,10 @@ const ArticleCard = ({ topic, title, author, created_at, article_id }) => {
         Posted by /u {author} <br />
         {title} <br />
         At {created_at}
+        <br />
+        Comment count {comment_count}
+        <br />
+        Votes {votes}
         <br />
       </ArticleCardDiv>
     </Link>

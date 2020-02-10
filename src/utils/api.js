@@ -1,9 +1,9 @@
 const axios = require("axios");
 
-const getArticles = ({ slug }) => {
+const getArticles = ({ slug }, { sortBy }) => {
   return axios
     .get("https://domh-be-nc-news.herokuapp.com/api/articles", {
-      params: { topic: slug }
+      params: { topic: slug, sort_by: sortBy, limit: 100 }
     })
     .then(({ data: { articles } }) => {
       return articles;
@@ -11,7 +11,6 @@ const getArticles = ({ slug }) => {
 };
 
 const getArticleById = article_id => {
-  console.log(article_id, "GET ART BY ID UTIL");
   return axios
     .get(`https://domh-be-nc-news.herokuapp.com/api/articles/${article_id}`)
     .then(({ data: { article } }) => {
