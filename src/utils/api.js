@@ -1,13 +1,31 @@
 const axios = require("axios");
 
-const getArticles = ({ slug, article_id }) => {
-  console.log(article_id, "<<<< GET ARTICLES");
+const getArticles = ({ slug }) => {
   return axios
     .get("https://domh-be-nc-news.herokuapp.com/api/articles", {
-      params: { topic: slug, article_id: article_id }
+      params: { topic: slug }
     })
     .then(({ data: { articles } }) => {
       return articles;
+    });
+};
+
+const getArticleById = article_id => {
+  console.log(article_id, "GET ART BY ID UTIL");
+  return axios
+    .get(`https://domh-be-nc-news.herokuapp.com/api/articles/${article_id}`)
+    .then(({ data: { article } }) => {
+      return article;
+    });
+};
+
+const getCommentsByArticleId = article_id => {
+  return axios
+    .get(
+      `https://domh-be-nc-news.herokuapp.com/api/articles/${article_id}/comments`
+    )
+    .then(({ data: { comments } }) => {
+      return comments;
     });
 };
 
@@ -19,4 +37,9 @@ const getAllTopics = () => {
     });
 };
 
-module.exports = { getAllTopics, getArticles };
+module.exports = {
+  getAllTopics,
+  getArticles,
+  getArticleById,
+  getCommentsByArticleId
+};

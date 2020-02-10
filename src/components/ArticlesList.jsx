@@ -3,23 +3,12 @@ import styled from "styled-components";
 import ArticleCard from "./ArticleCard";
 import ArticleDetail from "./ArticleDetail";
 // import { ArticlesContext } from "../contexts/ArticlesContext";
-import { Router } from "@reach/router";
+import { Router, Link } from "@reach/router";
 import * as api from "../utils/api";
 
 class ArticlesList extends Component {
   state = {
-    articles: [
-      {
-        author: "",
-        title: "",
-        article_id: "",
-        topic: "",
-        created_at: "",
-        votes: 0,
-        comment_count: 0,
-        total_count: 0
-      }
-    ]
+    articles: []
   };
 
   componentDidMount = () => {
@@ -58,13 +47,21 @@ class ArticlesList extends Component {
       <MainStyled>
         {console.log(this.props, "<<<<<")}
         <MainListH1>Articles </MainListH1>
+
+        <form>
+          <label>
+            Sort-by:
+            <select>
+              <option value="created_at">created at</option>
+              <option value="comment_count">comments</option>
+              <option value="votes">votes</option>
+            </select>
+          </label>
+        </form>
+
         {this.state.articles.map(article => {
           return <ArticleCard key={article.article_id} {...article} />;
         })}
-
-        <Router>
-          <ArticleDetail path="/articles/:article_id" />
-        </Router>
       </MainStyled>
     );
   }
