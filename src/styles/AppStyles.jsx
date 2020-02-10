@@ -5,8 +5,10 @@ const AppStyles = styled.div`
   @media only screen and (max-width: 600px) {
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: 50px 100px 1fr;
-    border: solid;
+    grid-template-rows: 120px 55px 100vh;
+
+    border-style: dotted;
+    border-color: red;
   }
 `;
 
