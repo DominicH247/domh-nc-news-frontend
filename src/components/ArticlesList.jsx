@@ -22,7 +22,8 @@ const MainListH1 = styled.h1`
 class ArticlesList extends Component {
   state = {
     articles: [],
-    query: { sortBy: undefined, order: "asc" }
+    query: { sortBy: undefined, order: "asc" },
+    isLoading: true
   };
 
   componentDidMount = () => {
@@ -41,7 +42,7 @@ class ArticlesList extends Component {
 
   fetchArticles = () => {
     api.getArticles(this.props, this.state.query).then(articles => {
-      this.setState({ articles });
+      this.setState({ articles, isLoading: false });
     });
   };
 
@@ -50,6 +51,10 @@ class ArticlesList extends Component {
   };
 
   render() {
+    if (this.state.isLoading) {
+      // TO ADD LOADING COMPONENT
+      return <p>LOADING</p>;
+    }
     return (
       <MainStyled>
         <MainListH1>Articles </MainListH1>

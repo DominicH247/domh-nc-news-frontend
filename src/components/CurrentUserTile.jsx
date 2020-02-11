@@ -6,6 +6,7 @@ import styled from "styled-components";
 const UserIconLoggedIn = styled.div`
   grid-column: 3/4;
   margin-top: 20px;
+  margin-bottom: 20px;
   height: 90px;
   width: 90px;
   background-image: url(${props => props.avatar_url});
@@ -41,6 +42,12 @@ const UserIconName = styled.p`
 
 const LogInButton = styled.button`
   grid-column: 3/4;
+  border: solid 1px #407d90;
+  border-radius: 5px;
+  color: white;
+  background-color: #407d90;
+  font-family: Spartan;
+  text-align: center;
 `;
 
 const CurrentUserTile = () => {
