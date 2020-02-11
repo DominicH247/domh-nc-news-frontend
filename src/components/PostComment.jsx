@@ -9,9 +9,7 @@ class PostComment extends Component {
 
   handleChange = event => {
     const userInput = event.target.value;
-    this.setState({ userInput }, () => {
-      console.log(this.state);
-    });
+    this.setState({ userInput });
   };
 
   handleSubmit = event => {
@@ -24,13 +22,21 @@ class PostComment extends Component {
     return (
       <section>
         <header>ARTICLE TITLE</header>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            {/* INPUT TO FILL PAGE */}
-            Comment body: <input onChange={this.handleChange} />
-          </label>
-          <button>Post comment</button>
-        </form>
+        {this.props.isLoggedIn ? (
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              {/* INPUT TO FILL PAGE */}
+              Comment body:{" "}
+              <input
+                onChange={this.handleChange}
+                value={this.state.userInput}
+              />
+            </label>
+            <button>Post comment</button>
+          </form>
+        ) : (
+          <div>Please sign in to comment</div>
+        )}
       </section>
     );
   }

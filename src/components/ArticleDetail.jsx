@@ -5,6 +5,16 @@ import Voter from "./Voter";
 import PostComment from "./PostComment";
 import { UserLogInContext } from "../contexts/UserLogInContext";
 
+// COMPONENT STYLING
+const ArticleDetailStyled = styled.section`
+  /* MOBILE */
+  width: 100%;
+  background-color: #376b7b;
+  padding-left: 30px;
+  padding-right: 30px;
+  color: white;
+`;
+
 class ArticleDetail extends Component {
   state = {
     article: {},
@@ -32,8 +42,10 @@ class ArticleDetail extends Component {
     const article_id = this.state.article.article_id;
     api
       .postComment(article_id, username, body)
-      .then(({ data }) => {
-        console.log(data, "POST COMMENT DATA");
+      .then(({ data: { comment } }) => {
+        this.setState(currentState => {
+          return { comments: [comment, ...currentState.comments] };
+        });
       })
       .catch(err => {
         if (err) {
@@ -43,15 +55,6 @@ class ArticleDetail extends Component {
   };
 
   render() {
-    const ArticleDetailStyled = styled.section`
-      /* MOBILE */
-      width: 100%;
-      background-color: #376b7b;
-      padding-left: 30px;
-      padding-right: 30px;
-      color: white;
-    `;
-
     // destructure article details
     const {
       author,
@@ -84,13 +87,13 @@ class ArticleDetail extends Component {
                   article_id={article_id}
                   insertComment={this.insertComment}
                   username={username}
+                  isLoggedIn={isLoggedIn}
                 />
                 {this.state.comments.map(comment => {
                   return (
                     <section key={comment.comment_id}>
                       <p>{comment.author}</p>
                       <p>{comment.body}</p>
-                      <p>{comment.votes}</p>
                       <Voter
                         votes={comment.votes}
                         id={comment.comment_id}
