@@ -19,6 +19,27 @@ const MainListH1 = styled.h1`
   color: white;
 `;
 
+// FORM STYLING
+const SortByForm = styled.form`
+  /* MOBILE */
+  color: white;
+  margin-bottom: 10px;
+`;
+
+const SortByFormLabel = styled.label`
+  /* MOBILE */
+  margin-left: 0px;
+`;
+
+const SortByFormSelect = styled.select`
+  margin-left: 10px;
+  font-family: Spartan;
+  border-color: #376b7b;
+  border-radius: 5px;
+  background-color: #376b7b;
+  color: white;
+`;
+
 class ArticlesList extends Component {
   state = {
     articles: [],
@@ -59,10 +80,10 @@ class ArticlesList extends Component {
       <MainStyled>
         <MainListH1>Articles </MainListH1>
 
-        <form>
-          <label>
+        <SortByForm>
+          <SortByFormLabel>
             Sort-by:
-            <select
+            <SortByFormSelect
               id="sortBy"
               onChange={this.handleChange}
               value={this.state.query.sortBy}
@@ -70,9 +91,9 @@ class ArticlesList extends Component {
               <option value="created_at">created at</option>
               <option value="comment_count">comments</option>
               <option value="votes">votes</option>
-            </select>
-          </label>
-        </form>
+            </SortByFormSelect>
+          </SortByFormLabel>
+        </SortByForm>
 
         {this.state.articles.map(article => {
           return <ArticleCard key={article.article_id} {...article} />;
