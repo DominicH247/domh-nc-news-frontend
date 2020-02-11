@@ -27,20 +27,19 @@ const ArticleCard = ({
   votes
 }) => {
   return (
-    <Link to={`/articles/${article_id}`}>
-      <ArticleCardDiv>
-        t/ {topic} <br />
-        Posted by /u {author} <br />
+    <ArticleCardDiv>
+      t/ {topic} <br />
+      Posted by /u {author} <br />
+      <Link to={`/articles/${article_id}`}>
         {title} <br />
-        At {created_at}
-        <br />
-        Comment count {comment_count}
-        <br />
-        Votes {votes}
-        <Voter votes={votes} id={article_id} />
-        <br />
-      </ArticleCardDiv>
-    </Link>
+      </Link>
+      At {created_at}
+      <br />
+      Comment count {comment_count}
+      <br />
+      <Voter votes={votes} id={article_id} type={"articles"} />
+      <br />
+    </ArticleCardDiv>
   );
 };
 
