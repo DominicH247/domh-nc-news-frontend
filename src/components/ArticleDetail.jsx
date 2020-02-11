@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import * as api from "../utils/api";
 import styled from "styled-components";
 import Voter from "./Voter";
+import PostComment from "./PostComment";
+import { UserLogInContext } from "../contexts/UserLogInContext";
 
 class ArticleDetail extends Component {
   state = {
@@ -26,6 +28,13 @@ class ArticleDetail extends Component {
     );
   };
 
+  insertComment = (username, body) => {
+    const article_id = this.state.article.article_id;
+    api.postComment(article_id, username, body).then(({ data }) => {
+      console.log(data, "POST COMMENT DATA");
+    });
+  };
+
   render() {
     const ArticleDetailStyled = styled.section`
       /* MOBILE */
@@ -48,34 +57,47 @@ class ArticleDetail extends Component {
     } = this.state.article;
 
     return (
-      <>
-        <ArticleDetailStyled>
-          <p>/t {topic}</p>
-          <p>Posted by /u {author}</p>
-          <p>Created at {created_at}</p>
-          <p>{body}</p>
-          <Voter votes={votes} id={article_id} type={"articles"} />
-          <p>Comments {comment_count}</p>
-        </ArticleDetailStyled>
-        <section>
-          COMMENTS | SORT-BY | ORDER | ADD COMMENT
-          {this.state.comments.map(comment => {
-            return (
-              <section key={comment.comment_id}>
-                <p>{comment.author}</p>
-                <p>{comment.body}</p>
-                <p>{comment.votes}</p>
-                <Voter
-                  votes={comment.votes}
-                  id={comment.comment_id}
-                  type={"comments"}
+      <UserLogInContext.Consumer>
+        {context => {
+          const { username, isLoggedIn } = context;
+
+          return (
+            <>
+              <ArticleDetailStyled>
+                <p>/t {topic}</p>
+                <p>Posted by /u {author}</p>
+                <p>Created at {created_at}</p>
+                <p>{body}</p>
+                <Voter votes={votes} id={article_id} type={"articles"} />
+                <p>Comments {comment_count}</p>
+              </ArticleDetailStyled>
+              <section>
+                COMMENTS | SORT-BY | ORDER | ADD COMMENT
+                <PostComment
+                  article_id={article_id}
+                  insertComment={this.insertComment}
+                  username={username}
                 />
-                <p>{comment.created_at}</p>
+                {this.state.comments.map(comment => {
+                  return (
+                    <section key={comment.comment_id}>
+                      <p>{comment.author}</p>
+                      <p>{comment.body}</p>
+                      <p>{comment.votes}</p>
+                      <Voter
+                        votes={comment.votes}
+                        id={comment.comment_id}
+                        type={"comments"}
+                      />
+                      <p>{comment.created_at}</p>
+                    </section>
+                  );
+                })}
               </section>
-            );
-          })}
-        </section>
-      </>
+            </>
+          );
+        }}
+      </UserLogInContext.Consumer>
     );
   }
 }

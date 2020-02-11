@@ -37,10 +37,17 @@ const getAllTopics = () => {
 };
 
 const patchVotes = (id, value, type) => {
-  console.log(type);
   axios.patch(`https://domh-be-nc-news.herokuapp.com/api/${type}/${id}`, {
     inc_votes: value
   });
+};
+
+const postComment = (article_id, username, body) => {
+  console.log(article_id, username, body, "UTILS");
+  return axios.post(
+    `https://domh-be-nc-news.herokuapp.com/api/articles/${article_id}/comments`,
+    { username: username, body: body }
+  );
 };
 
 module.exports = {
@@ -48,5 +55,6 @@ module.exports = {
   getArticles,
   getArticleById,
   getCommentsByArticleId,
-  patchVotes
+  patchVotes,
+  postComment
 };
