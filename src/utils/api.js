@@ -36,9 +36,16 @@ const getAllTopics = () => {
     });
 };
 
+const patchVotes = (id, value) => {
+  axios.patch(`https://domh-be-nc-news.herokuapp.com/api/articles/${id}`, {
+    inc_votes: value
+  });
+};
+
 module.exports = {
   getAllTopics,
   getArticles,
   getArticleById,
-  getCommentsByArticleId
+  getCommentsByArticleId,
+  patchVotes
 };
