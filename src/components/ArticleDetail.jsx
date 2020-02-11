@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import * as api from "../utils/api";
 import styled from "styled-components";
+import Voter from "./Voter";
 
 class ArticleDetail extends Component {
   state = {
@@ -42,7 +43,8 @@ class ArticleDetail extends Component {
       created_at,
       topic,
       votes,
-      comment_count
+      comment_count,
+      article_id
     } = this.state.article;
 
     return (
@@ -52,7 +54,7 @@ class ArticleDetail extends Component {
           <p>Posted by /u {author}</p>
           <p>Created at {created_at}</p>
           <p>{body}</p>
-          <p>Votes {votes}</p>
+          <Voter votes={votes} id={article_id} type={"articles"} />
           <p>Comments {comment_count}</p>
         </ArticleDetailStyled>
         <section>
@@ -63,6 +65,11 @@ class ArticleDetail extends Component {
                 <p>{comment.author}</p>
                 <p>{comment.body}</p>
                 <p>{comment.votes}</p>
+                <Voter
+                  votes={comment.votes}
+                  id={comment.comment_id}
+                  type={"comments"}
+                />
                 <p>{comment.created_at}</p>
               </section>
             );

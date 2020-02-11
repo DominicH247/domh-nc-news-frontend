@@ -7,19 +7,26 @@ class Voter extends Component {
   };
 
   handleClick = value => {
-    api.patchVotes(this.props.id, value);
+    api.patchVotes(this.props.id, value, this.props.type);
 
-    this.setState(currentState => {
-      return { optimisticVotes: currentState.optimisticVotes + value };
-    });
+    this.setState(
+      currentState => {
+        return { optimisticVotes: currentState.optimisticVotes + value };
+      },
+      () => {
+        console.log(this.state);
+      }
+    );
   };
   render() {
     return (
       <div>
+        <p>Votes: {this.props.votes + this.state.optimisticVotes}</p>
         <button
           onClick={() => {
             this.handleClick(+1);
           }}
+          disabled={this.state.optimisticVotes > 0}
         >
           Up Vote
         </button>
@@ -27,6 +34,7 @@ class Voter extends Component {
           onClick={() => {
             this.handleClick(-1);
           }}
+          disabled={this.state.optimisticVotes < 0}
         >
           Down Vote
         </button>
@@ -34,3 +42,5 @@ class Voter extends Component {
     );
   }
 }
+
+export default Voter;

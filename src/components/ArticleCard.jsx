@@ -2,6 +2,7 @@ import React from "react";
 // import { ArticleDetailContext } from "../contexts/ArticleDetailContext";
 import { Link } from "@reach/router";
 import styled from "styled-components";
+import Voter from "./Voter";
 
 // COMPONENT STYLING
 const ArticleCardDiv = styled.div`
@@ -36,6 +37,7 @@ const ArticleCard = ({
         Comment count {comment_count}
         <br />
         Votes {votes}
+        <Voter votes={votes} id={article_id} />
         <br />
       </ArticleCardDiv>
     </Link>

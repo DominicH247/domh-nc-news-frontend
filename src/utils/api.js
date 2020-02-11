@@ -36,8 +36,9 @@ const getAllTopics = () => {
     });
 };
 
-const patchVotes = (id, value) => {
-  axios.patch(`https://domh-be-nc-news.herokuapp.com/api/articles/${id}`, {
+const patchVotes = (id, value, type) => {
+  console.log(type);
+  axios.patch(`https://domh-be-nc-news.herokuapp.com/api/${type}/${id}`, {
     inc_votes: value
   });
 };
