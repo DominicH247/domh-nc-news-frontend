@@ -30,9 +30,16 @@ class ArticleDetail extends Component {
 
   insertComment = (username, body) => {
     const article_id = this.state.article.article_id;
-    api.postComment(article_id, username, body).then(({ data }) => {
-      console.log(data, "POST COMMENT DATA");
-    });
+    api
+      .postComment(article_id, username, body)
+      .then(({ data }) => {
+        console.log(data, "POST COMMENT DATA");
+      })
+      .catch(err => {
+        if (err) {
+          console.log(err.response.data);
+        }
+      });
   };
 
   render() {

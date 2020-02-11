@@ -44,9 +44,12 @@ const patchVotes = (id, value, type) => {
 
 const postComment = (article_id, username, body) => {
   console.log(article_id, username, body, "UTILS");
+  const postBody = { username, body };
+  console.log(postBody);
+
   return axios.post(
-    `https://domh-be-nc-news.herokuapp.com/api/articles/${article_id}/comments`,
-    { username: username, body: body }
+    `https://domh-be-nc-news.herokuapp.com/api/articles/33/comments`,
+    { body, username }
   );
 };
 
