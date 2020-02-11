@@ -8,21 +8,24 @@ import ArticlesList from "./components/ArticlesList";
 // import ArticlesContextProvider from "./contexts/ArticlesContext";
 import TopicsList from "./components/TopicsList";
 import ArticleDetail from "./components/ArticleDetail";
+import UserLogInContextProvider from "./contexts/UserLogInContext";
 
 class App extends Component {
   state = {};
   render() {
     return (
-      <AppStyles>
-        <Title />
-        <NavBar />
-        <Router>
-          <ArticlesList path="/" />
-          <ArticlesList path="/topics/:slug/articles" />
-          <TopicsList path="/topics" />
-          <ArticleDetail path="/articles/:article_id" />
-        </Router>
-      </AppStyles>
+      <UserLogInContextProvider>
+        <AppStyles>
+          <Title />
+          <NavBar />
+          <Router>
+            <ArticlesList path="/" />
+            <ArticlesList path="/topics/:slug/articles" />
+            <TopicsList path="/topics" />
+            <ArticleDetail path="/articles/:article_id" />
+          </Router>
+        </AppStyles>
+      </UserLogInContextProvider>
     );
   }
 }
