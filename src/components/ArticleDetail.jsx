@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Voter from "./Voter";
 import PostComment from "./PostComment";
 import { UserLogInContext } from "../contexts/UserLogInContext";
+import Delete from "./Delete";
 
 // COMPONENT STYLING
 const ArticleDetailStyled = styled.section`
@@ -23,6 +24,13 @@ class ArticleDetail extends Component {
 
   componentDidMount = () => {
     this.fetchArticleById();
+  };
+
+  fetchCommentsByArticleId = () => {
+    api.getCommentsByArticleId(this.props.article_id).then(comments => {
+      console.log(comments);
+      this.setState({ comments });
+    });
   };
 
   fetchArticleById = () => {
@@ -100,6 +108,15 @@ class ArticleDetail extends Component {
                         type={"comments"}
                       />
                       <p>{comment.created_at}</p>
+                      {comment.author === username && isLoggedIn && (
+                        <Delete
+                          type={"comment"}
+                          comment_id={comment.comment_id}
+                          fetchCommentsByArticleId={
+                            this.fetchCommentsByArticleId
+                          }
+                        />
+                      )}
                     </section>
                   );
                 })}
