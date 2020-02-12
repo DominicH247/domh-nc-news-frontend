@@ -1,6 +1,40 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+const PostCommentSection = styled.section`
+  /* MOBILE */
+  text-align: center;
+  background-color: #376b7b;
+  padding: 10px 10px;
+  border: solid black;
+  border-color: #376b7b;
+  border-radius: 10px;
+`;
+
+const CommentInput = styled.input`
+  /* MOBILE */
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 10px;
+  border-radius: 5px;
+  height: 2em;
+  border-color: black;
+  background-color: #ede9e9;
+`;
+
+const CommentFormLabel = styled.label`
+  font-size: 1em;
+`;
+
+const CommentFormButton = styled.button`
+  border: solid 1px #407d90;
+  border-radius: 5px;
+  color: white;
+  background-color: #407d90;
+  font-family: Spartan;
+  text-align: center;
+`;
+
 class PostComment extends Component {
   state = {
     currentUser: this.props.username,
@@ -20,24 +54,24 @@ class PostComment extends Component {
 
   render() {
     return (
-      <section>
-        <header>ARTICLE TITLE</header>
+      <PostCommentSection>
         {this.props.isLoggedIn ? (
           <form onSubmit={this.handleSubmit}>
-            <label>
+            <CommentFormLabel>
               {/* INPUT TO FILL PAGE */}
-              Comment body:{" "}
-              <input
+              Comment:
+              <CommentInput
                 onChange={this.handleChange}
                 value={this.state.userInput}
+                placeholder="Your comment"
               />
-            </label>
-            <button>Post comment</button>
+            </CommentFormLabel>
+            <CommentFormButton>Post comment</CommentFormButton>
           </form>
         ) : (
           <div>Please sign in to comment</div>
         )}
-      </section>
+      </PostCommentSection>
     );
   }
 }

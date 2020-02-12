@@ -1,5 +1,16 @@
 import React from "react";
 import * as api from "../utils/api.js";
+import styled from "styled-components";
+
+const DeleteButton = styled.button`
+  border: solid 2px #407d90;
+  border-radius: 5px;
+  color: white;
+  background-color: #376b7b;
+  font-family: Spartan;
+  text-align: center;
+  margin-bottom: 10px;
+`;
 
 const Delete = props => {
   const handleDeleteClick = () => {
@@ -8,7 +19,9 @@ const Delete = props => {
     });
   };
 
-  return <button onClick={handleDeleteClick}>Delete {`${props.type}`}</button>;
+  return (
+    <DeleteButton onClick={handleDeleteClick}>Delete Comment</DeleteButton>
+  );
 };
 
 export default Delete;

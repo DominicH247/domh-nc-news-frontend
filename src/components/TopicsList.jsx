@@ -8,7 +8,6 @@ const MainStyled = styled.main`
   width: 80%;
   margin: 0 auto;
   background-color: #407d90;
-  height: 100%;
 `;
 
 const MainListH1 = styled.h1`
@@ -19,21 +18,25 @@ const MainListH1 = styled.h1`
 
 class TopicsList extends Component {
   state = {
-    topics: [{ slug: "", description: "" }]
+    topics: [],
+    isLoading: true
   };
 
   componentDidMount() {
     api.getAllTopics().then(topics => {
-      this.setState({ topics });
+      this.setState({ topics, isLoading: false });
     });
   }
 
   render() {
     const { topics } = this.state;
 
+    if (this.state.isLoading) {
+      return <p>LOADING</p>; // TO MAKE COMPONENT
+    }
     return (
       <MainStyled>
-        <MainListH1>Topics List</MainListH1>
+        <MainListH1>Topics</MainListH1>
         {topics.map(topic => {
           return <TopicCard key={topic.slug} {...topic} />;
         })}

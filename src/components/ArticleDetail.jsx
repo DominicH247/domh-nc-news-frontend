@@ -2,18 +2,24 @@ import React, { Component } from "react";
 import * as api from "../utils/api";
 import styled from "styled-components";
 import Voter from "./Voter";
+import CommentCard from "./CommentCard";
 import PostComment from "./PostComment";
 import { UserLogInContext } from "../contexts/UserLogInContext";
-import Delete from "./Delete";
 
 // COMPONENT STYLING
 const ArticleDetailStyled = styled.section`
   /* MOBILE */
-  width: 100%;
   background-color: #376b7b;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding: 10px 30px;
   color: white;
+`;
+
+const CommentsSection = styled.section`
+  /* MOBILE */
+  color: white;
+  padding-top: 20px;
+  margin-left: 15px;
+  margin-right: 15px;
 `;
 
 class ArticleDetail extends Component {
@@ -28,7 +34,6 @@ class ArticleDetail extends Component {
 
   fetchCommentsByArticleId = () => {
     api.getCommentsByArticleId(this.props.article_id).then(comments => {
-      console.log(comments);
       this.setState({ comments });
     });
   };
@@ -82,15 +87,15 @@ class ArticleDetail extends Component {
           return (
             <>
               <ArticleDetailStyled>
-                <p>/t {topic}</p>
-                <p>Posted by /u {author}</p>
+                <p>t/ {topic}</p>
+                <p>Posted by u/ {author}</p>
                 <p>Created at {created_at}</p>
                 <p>{body}</p>
                 <Voter votes={votes} id={article_id} type={"articles"} />
-                <p>Comments {comment_count}</p>
               </ArticleDetailStyled>
-              <section>
-                COMMENTS | SORT-BY | ORDER | ADD COMMENT
+              <CommentsSection>
+                {/* COMMENTS | SORT-BY | ORDER | ADD COMMENT Comments{" "} */}
+                <p>{comment_count}</p>
                 <PostComment
                   article_id={article_id}
                   insertComment={this.insertComment}
@@ -99,28 +104,21 @@ class ArticleDetail extends Component {
                 />
                 {this.state.comments.map(comment => {
                   return (
-                    <section key={comment.comment_id}>
-                      <p>{comment.author}</p>
-                      <p>{comment.body}</p>
-                      <Voter
-                        votes={comment.votes}
-                        id={comment.comment_id}
-                        type={"comments"}
-                      />
-                      <p>{comment.created_at}</p>
-                      {comment.author === username && isLoggedIn && (
-                        <Delete
-                          type={"comment"}
-                          comment_id={comment.comment_id}
-                          fetchCommentsByArticleId={
-                            this.fetchCommentsByArticleId
-                          }
-                        />
-                      )}
-                    </section>
+                    <CommentCard
+                      key={comment.comment_id}
+                      author={comment.author}
+                      body={comment.body}
+                      votes={comment.votes}
+                      comment_id={comment.comment_id}
+                      type={"comments"}
+                      created_at={comment.created_at}
+                      fetchCommentsByArticleId={this.fetchCommentsByArticleId}
+                      isLoggedIn={isLoggedIn}
+                      username={username}
+                    />
                   );
                 })}
-              </section>
+              </CommentsSection>
             </>
           );
         }}

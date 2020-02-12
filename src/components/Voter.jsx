@@ -5,7 +5,8 @@ import arrow from "/home/domh/projects/northcoders/frontend/review/domh-nc-news-
 
 const VoterContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  margin-top: 10px;
+  padding-bottom: 10px;
 `;
 
 const UpVoteBtn = styled.button`
@@ -15,7 +16,7 @@ const UpVoteBtn = styled.button`
   background-size: 20px;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #376b7b;
+  background-color: transparent;
   border: none;
   color: transparent;
 `;
@@ -28,11 +29,14 @@ const DownVoteBtn = styled.button`
   background-size: 20px;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #376b7b;
+  background-color: transparent;
   border: none;
   color: transparent;
 `;
 
+const Votes = styled.p`
+  margin: 0px 10px;
+`;
 class Voter extends Component {
   state = {
     optimisticVotes: 0
@@ -53,7 +57,6 @@ class Voter extends Component {
   render() {
     return (
       <VoterContainer>
-        <p>Votes: {this.props.votes + this.state.optimisticVotes}</p>
         <UpVoteBtn
           onClick={() => {
             this.handleClick(+1);
@@ -62,6 +65,8 @@ class Voter extends Component {
         >
           Up Vote
         </UpVoteBtn>
+
+        <Votes>{this.props.votes + this.state.optimisticVotes}</Votes>
 
         <DownVoteBtn
           onClick={() => {
