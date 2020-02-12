@@ -1,26 +1,51 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import ArticleCard from "./ArticleCard";
-
 import * as api from "../utils/api";
+import TopicsListDesktop from "./TopicsList";
 
 // COMPONENT STYLING
+
 const MainStyled = styled.main`
-  /* MOBILE */
-  width: 80%;
-  margin: 0 auto;
-  background-color: #407d90;
-  height: 100%;
+  @media only screen and (min-width: 601px) {
+    /* DESKTOP */
+    width: 100vw;
+    display: grid;
+    grid-template-columns: auto 30% 40% auto;
+    grid-template-rows: 100px auto;
+    height: 100%;
+  }
+
+  @media only screen and (max-width: 600px) {
+    /* MOBILE */
+    width: 80%;
+    margin: 0 auto;
+    background-color: #407d90;
+    height: 100%;
+  }
 `;
 
 const MainListH1 = styled.h1`
-  /* MOBILE */
-  text-align: center;
-  color: white;
+  @media only screen and (min-width: 601px) {
+    grid-column-start: 3;
+    text-align: center;
+    color: white;
+  }
+
+  @media only screen and (max-width: 600px) {
+    /* MOBILE */
+    text-align: center;
+    color: white;
+  }
 `;
 
 // FORM STYLING
 const SortByForm = styled.form`
+  @media only screen and (min-width: 601px) {
+    grid-column-start: 3;
+    text-align: center;
+  }
+
   /* MOBILE */
   color: white;
   margin-bottom: 10px;
@@ -78,6 +103,7 @@ class ArticlesList extends Component {
     }
     return (
       <MainStyled>
+        <TopicsListDesktop />
         <MainListH1>Articles </MainListH1>
 
         <SortByForm>

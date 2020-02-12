@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+// CONSIDER REFACTOR TO GLOBAL STYLES
+
 const AppStyles = styled.div`
   /* Desktop */
   @media only screen and (min-width: 601px) {
@@ -14,9 +16,6 @@ const AppStyles = styled.div`
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: 130px 55px auto;
-
-    border-style: dotted;
-    border-color: red;
   }
 `;
 

@@ -5,12 +5,22 @@ import CurrentUserTile from "./CurrentUserTile";
 
 // COMPONENT STYLING
 const TitleHeaderContainer = styled.header`
-  /* MOBILE  */
-  grid-template-columns: 150px 1fr 100px;
-  display: grid;
-  height: 130px;
-  background-color: #154854;
-  text-decoration: none;
+  @media only screen and (min-width: 601px) {
+    grid-area: 1/1/2/3;
+    grid-template-columns: 150px 1fr 100px;
+    display: grid;
+    height: 130px;
+    background-color: #154854;
+  }
+
+  @media only screen and (max-width: 600px) {
+    /* MOBILE  */
+    grid-template-columns: 150px 1fr 100px;
+    display: grid;
+    height: 130px;
+    background-color: #154854;
+    text-decoration: none;
+  }
 `;
 
 const Logo = styled.div`

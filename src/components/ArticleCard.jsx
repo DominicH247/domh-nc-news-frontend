@@ -6,21 +6,44 @@ import Voter from "./Voter";
 
 // COMPONENT STYLING
 const ArticleCardDiv = styled.div`
-  /* MOBILE */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: #376b7b;
-  color: white;
-  padding-top: 30px;
-  padding-left: 10px;
-  margin-bottom: 13px;
-  border: solid;
-  border-width: 1px;
-  border-color: #376b7b;
-  border-radius: 5px;
-  line-height: 1.8em;
-  height: auto;
+  @media only screen and (min-width: 601px) {
+    grid-column-start: 3;
+    width: auto;
+    margin: 0;
+    margin-bottom: 13px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #376b7b;
+    color: white;
+    padding-top: 30px;
+    padding-left: 10px;
+    margin-bottom: 13px;
+    border: solid;
+    border-width: 1px;
+    border-color: #376b7b;
+    border-radius: 5px;
+    line-height: 1.8em;
+    height: auto;
+    font-size: 1.2em;
+  }
+  @media only screen and (max-width: 600px) {
+    /* MOBILE */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #376b7b;
+    color: white;
+    padding-top: 30px;
+    padding-left: 10px;
+    margin-bottom: 13px;
+    border: solid;
+    border-width: 1px;
+    border-color: #376b7b;
+    border-radius: 5px;
+    line-height: 1.8em;
+    height: auto;
+  }
 `;
 
 const ArticleCard = ({

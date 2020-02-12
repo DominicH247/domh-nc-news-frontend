@@ -4,6 +4,9 @@ import styled from "styled-components";
 import TopicCard from "../components/TopicCard";
 
 const MainStyled = styled.main`
+  @media only screen and (min-width: 601px) {
+    grid-column-start: 2;
+  }
   /* MOBILE */
   width: 80%;
   margin: 0 auto;
@@ -11,6 +14,11 @@ const MainStyled = styled.main`
 `;
 
 const MainListH1 = styled.h1`
+  @media only screen and (min-width: 601px) {
+    margin-bottom: 70px;
+    grid-column-start: 3;
+  }
+
   /* MOBILE */
   text-align: center;
   color: white;

@@ -9,6 +9,7 @@ import ArticlesList from "./components/ArticlesList";
 import TopicsList from "./components/TopicsList";
 import ArticleDetail from "./components/ArticleDetail";
 import UserLogInContextProvider from "./contexts/UserLogInContext";
+import ErrDisplayer from "./components/ErrDisplayer";
 
 class App extends Component {
   state = {};
@@ -23,6 +24,7 @@ class App extends Component {
             <ArticlesList path="/topics/:slug/articles" />
             <TopicsList path="/topics" />
             <ArticleDetail path="/articles/:article_id" />
+            <ErrDisplayer />
           </Router>
         </AppStyles>
       </UserLogInContextProvider>
