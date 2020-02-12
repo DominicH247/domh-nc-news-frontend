@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "@reach/router";
+import { ThemeContext } from "../contexts/ThemeContext";
 
 //COMPONENT STYLING
 

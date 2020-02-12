@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import logo from "../images/nc-news-logo.png";
 import CurrentUserTile from "./CurrentUserTile";
+import SearchBar from "./SearchBar";
 
 // COMPONENT STYLING
 const TitleHeaderContainer = styled.header`
@@ -26,6 +27,7 @@ const TitleHeaderContainer = styled.header`
 const Logo = styled.div`
   /* MOBILE */
   grid-column: 1/2;
+  grid-row: 1;
   height: 100px;
   padding: 5px;
   background-image: url(${logo});
@@ -39,6 +41,7 @@ const Logo = styled.div`
 const Title = () => {
   return (
     <TitleHeaderContainer>
+      <SearchBar />
       <Logo></Logo>
       <CurrentUserTile />
     </TitleHeaderContainer>

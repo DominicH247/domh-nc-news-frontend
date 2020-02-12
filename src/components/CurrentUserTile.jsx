@@ -1,10 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 import { UserLogInContext } from "../contexts/UserLogInContext";
 import styled from "styled-components";
 
 // USER ICON STYLING
 const UserIconLoggedIn = styled.div`
   grid-column: 3/4;
+  grid-row: 1;
   margin-top: 20px;
   margin-bottom: 20px;
   height: 90px;
@@ -50,36 +51,59 @@ const LogInButton = styled.button`
   text-align: center;
 `;
 
-const CurrentUserTile = () => {
-  return (
-    <UserLogInContext.Consumer>
-      {context => {
-        const {
-          username,
-          avatar_url,
-          OutAvatarUrl,
-          isLoggedIn,
-          LogInClick
-        } = context;
+class CurrentUserTile extends Component {
+  state = {
+    selectedUser: ""
+  };
 
-        return (
-          <>
-            {isLoggedIn ? (
-              <UserIconLoggedIn avatar_url={avatar_url}>
-                <UserIconName>{username}</UserIconName>
-                <LogInButton onClick={LogInClick}>Sign Out</LogInButton>
-              </UserIconLoggedIn>
-            ) : (
-              <UserIconLoggedOut OutAvatarUrl={OutAvatarUrl}>
-                <UserIconName>Log In</UserIconName>
-                <LogInButton onClick={LogInClick}>Sign In</LogInButton>
-              </UserIconLoggedOut>
-            )}
-          </>
-        );
-      }}
-    </UserLogInContext.Consumer>
-  );
-};
+  render() {
+    return (
+      <UserLogInContext.Consumer>
+        {context => {
+          const {
+            users,
+            username,
+            avatar_url,
+            OutAvatarUrl,
+            isLoggedIn,
+            LogInClick,
+            setSelectedUser
+          } = context;
+
+          const handleChange = event => {
+            this.setState({ selectedUser: event.target.value }, () => {
+              setSelectedUser(this.state.selectedUser);
+            });
+          };
+
+          return (
+            <>
+              {isLoggedIn ? (
+                <UserIconLoggedIn avatar_url={avatar_url}>
+                  <UserIconName>{username}</UserIconName>
+                  <LogInButton onClick={LogInClick}>Sign Out</LogInButton>
+                </UserIconLoggedIn>
+              ) : (
+                <UserIconLoggedOut OutAvatarUrl={OutAvatarUrl}>
+                  <select onChange={handleChange}>
+                    {users.map(user => {
+                      return (
+                        <option key={user.username} value={user.username}>
+                          {user.username}
+                        </option>
+                      );
+                    })}
+                  </select>
+                  <UserIconName>Log In</UserIconName>
+                  <LogInButton onClick={LogInClick}>Sign In</LogInButton>
+                </UserIconLoggedOut>
+              )}
+            </>
+          );
+        }}
+      </UserLogInContext.Consumer>
+    );
+  }
+}
 
 export default CurrentUserTile;

@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import ArticleCard from "./ArticleCard";
 import * as api from "../utils/api";
-import TopicsListDesktop from "./TopicsList";
-import ThemeContext from "../contexts/ThemeContext";
+import TopicsList from "./TopicsList";
+import { ThemeContext } from "../contexts/ThemeContext";
+
+import SearchBar from "./SearchBar";
 
 // COMPONENT STYLING
 
@@ -45,7 +47,7 @@ const SortByForm = styled.form`
   @media only screen and (min-width: 601px) {
     grid-column-start: 3;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1em;
   }
 
   /* MOBILE */
@@ -61,7 +63,7 @@ const SortByFormLabel = styled.label`
 const SortByFormSelect = styled.select`
   @media only screen and (min-width: 60px) {
     /* DESKTOP */
-    font-size: 1.5em;
+    font-size: 1.2em;
   }
 
   margin-left: 10px;
@@ -85,10 +87,14 @@ class ArticlesList extends Component {
   };
 
   componentDidUpdate = (prevProps, prevState) => {
-    if (prevProps !== this.props) {
+    if (prevProps.slug !== this.props.slug) {
       this.fetchArticles(this.props);
     }
-    if (prevState.query !== this.state.query) {
+    if (
+      prevState.query.sortBy !== this.state.query.sortBy ||
+      prevState.query.order !== this.state.query.order
+    ) {
+      console.log("HERE");
       this.fetchArticles();
     }
   };
@@ -103,35 +109,56 @@ class ArticlesList extends Component {
     this.setState({ query: { [id]: value } });
   };
 
+  applySearchFilter = searchInput => {
+    console.log(searchInput, "HERE");
+
+    const matcherReg = new RegExp(`${searchInput}`, "gi");
+
+    const filteredArticles = this.state.articles.filter(article => {
+      return matcherReg.test(article.title);
+    });
+
+    this.setState({ articles: filteredArticles });
+  };
+
   render() {
-    if (this.state.isLoading) {
-      // TO ADD LOADING COMPONENT
-      return <p>LOADING</p>;
-    }
     return (
-      <MainStyled>
-        <TopicsListDesktop />
-        <MainListH1>Articles </MainListH1>
+      <ThemeContext.Consumer>
+        {context => {
+          const { width } = context;
+          if (this.state.isLoading) {
+            // TO ADD LOADING COMPONENT
+            return <p>LOADING</p>;
+          }
 
-        <SortByForm>
-          <SortByFormLabel>
-            Sort-by:
-            <SortByFormSelect
-              id="sortBy"
-              onChange={this.handleChange}
-              value={this.state.query.sortBy}
-            >
-              <option value="created_at">created at</option>
-              <option value="comment_count">comments</option>
-              <option value="votes">votes</option>
-            </SortByFormSelect>
-          </SortByFormLabel>
-        </SortByForm>
+          return (
+            <MainStyled>
+              {width > 601 && <TopicsList />}
 
-        {this.state.articles.map(article => {
-          return <ArticleCard key={article.article_id} {...article} />;
-        })}
-      </MainStyled>
+              <MainListH1>Articles </MainListH1>
+              <SearchBar applySearchFilter={this.applySearchFilter} />
+              <SortByForm>
+                <SortByFormLabel>
+                  Sort-by:
+                  <SortByFormSelect
+                    id="sortBy"
+                    onChange={this.handleChange}
+                    value={this.state.query.sortBy}
+                  >
+                    <option value="created_at">created at</option>
+                    <option value="comment_count">comments</option>
+                    <option value="votes">votes</option>
+                  </SortByFormSelect>
+                </SortByFormLabel>
+              </SortByForm>
+
+              {this.state.articles.map(article => {
+                return <ArticleCard key={article.article_id} {...article} />;
+              })}
+            </MainStyled>
+          );
+        }}
+      </ThemeContext.Consumer>
     );
   }
 }

@@ -55,6 +55,22 @@ const deleteComment = comment_id => {
   );
 };
 
+const getAllUsers = () => {
+  return axios
+    .get("https://domh-be-nc-news.herokuapp.com/api/users")
+    .then(({ data: { users } }) => {
+      return users;
+    });
+};
+
+const getUserByUsername = username => {
+  return axios
+    .get(`https://domh-be-nc-news.herokuapp.com/api/users/${username}`)
+    .then(({ data: { user } }) => {
+      return user;
+    });
+};
+
 module.exports = {
   getAllTopics,
   getArticles,
@@ -62,5 +78,7 @@ module.exports = {
   getCommentsByArticleId,
   patchVotes,
   postComment,
-  deleteComment
+  deleteComment,
+  getAllUsers,
+  getUserByUsername
 };
