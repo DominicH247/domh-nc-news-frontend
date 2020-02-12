@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ArticleCard from "./ArticleCard";
 import * as api from "../utils/api";
 import TopicsListDesktop from "./TopicsList";
+import ThemeContext from "../contexts/ThemeContext";
 
 // COMPONENT STYLING
 
@@ -44,6 +45,7 @@ const SortByForm = styled.form`
   @media only screen and (min-width: 601px) {
     grid-column-start: 3;
     text-align: center;
+    font-size: 1.5em;
   }
 
   /* MOBILE */
@@ -57,6 +59,11 @@ const SortByFormLabel = styled.label`
 `;
 
 const SortByFormSelect = styled.select`
+  @media only screen and (min-width: 60px) {
+    /* DESKTOP */
+    font-size: 1.5em;
+  }
+
   margin-left: 10px;
   font-family: Spartan;
   border-color: #376b7b;

@@ -15,7 +15,7 @@ const MainStyled = styled.main`
 
 const MainListH1 = styled.h1`
   @media only screen and (min-width: 601px) {
-    margin-bottom: 70px;
+    margin-bottom: 83px;
     grid-column-start: 3;
   }
 
