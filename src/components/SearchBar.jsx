@@ -3,27 +3,41 @@ import styled from "styled-components";
 
 const SearchForm = styled.form`
   text-align: center;
-  grid-column: 2;
+  grid-column-start: 3;
   justify-content: center;
-  padding-top: 50px;
+  color: white;
+  margin-bottom: 20px;
 `;
 
-const SearchSelect = styled.select`
-  height: 2em;
+const SearchFormInput = styled.input`
+  border-radius: 5px;
+  font-family: Spartan;
+  padding-top: 5px;
+  padding-left: 10px;
+  margin-left: 10px;
+`;
+
+const SearchFormLabel = styled.label`
+  margin-right: 10px;
+`;
+
+const SearchButton = styled.button`
+  border: solid 1px #407d90;
+  border-radius: 5px;
+  padding-top: 5px;
+  color: white;
+  background-color: #376b7b;
+  font-family: Spartan;
+  text-align: center;
 `;
 
 class SearchBar extends Component {
   state = {
-    searchInput: "",
-    selectInput: ""
+    searchInput: ""
   };
 
   handleFormInputChange = event => {
     this.setState({ searchInput: event.target.value });
-  };
-
-  handleOnChange = event => {
-    this.setState({ selectInput: event.target.value }, () => {});
   };
 
   handleSubmit = event => {
@@ -35,20 +49,16 @@ class SearchBar extends Component {
   render() {
     return (
       <SearchForm onSubmit={this.handleSubmit}>
-        <SearchSelect onChange={this.handleOnChange}>
-          <option value="articles">articles</option>
-          <option value="topics">topic</option>
-          <option value="users">user</option>
-        </SearchSelect>
-        <label>
+        <SearchFormLabel>
           Search:
-          <input
+          <SearchFormInput
             type="text"
             onChange={this.handleFormInputChange}
             value={this.state.searchInput}
+            placeholder="Search by article title"
           />
-        </label>
-        <button>Search</button>
+        </SearchFormLabel>
+        <SearchButton>Search</SearchButton>
       </SearchForm>
     );
   }

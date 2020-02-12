@@ -29,6 +29,7 @@ const CommentFormLabel = styled.label`
 const CommentFormButton = styled.button`
   border: solid 1px #407d90;
   border-radius: 5px;
+  padding-top: 5px;
   color: white;
   background-color: #407d90;
   font-family: Spartan;

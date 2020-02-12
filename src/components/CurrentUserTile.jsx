@@ -18,6 +18,7 @@ const UserIconLoggedIn = styled.div`
   border-radius: 10px;
   color: white;
   text-align: center;
+  justify-content: center;
 `;
 
 const UserIconLoggedOut = styled.div`
@@ -29,7 +30,6 @@ const UserIconLoggedOut = styled.div`
   background-size: 50px;
   background-repeat: no-repeat;
   background-position: top;
-  /* border: solid black; */
   border-radius: 10px;
   color: white;
   text-align: center;
@@ -41,10 +41,27 @@ const UserIconName = styled.p`
   text-align: center;
 `;
 
+const LogInForm = styled.form`
+  margin-top: 55px;
+`;
+
+const UserSelect = styled.select`
+  text-align: left;
+  border-radius: 5px;
+  font-family: Spartan;
+  border-color: #376b7b;
+  border-radius: 5px;
+  background-color: #376b7b;
+  color: white;
+  margin-bottom: 5px;
+  width: 62px;
+`;
+
 const LogInButton = styled.button`
   grid-column: 3/4;
   border: solid 1px #407d90;
   border-radius: 5px;
+  padding-top: 3px;
   color: white;
   background-color: #407d90;
   font-family: Spartan;
@@ -85,17 +102,20 @@ class CurrentUserTile extends Component {
                 </UserIconLoggedIn>
               ) : (
                 <UserIconLoggedOut OutAvatarUrl={OutAvatarUrl}>
-                  <select onChange={handleChange}>
-                    {users.map(user => {
-                      return (
-                        <option key={user.username} value={user.username}>
-                          {user.username}
-                        </option>
-                      );
-                    })}
-                  </select>
-                  <UserIconName>Log In</UserIconName>
-                  <LogInButton onClick={LogInClick}>Sign In</LogInButton>
+                  {/* <UserIconName>Log In</UserIconName> */}
+                  <LogInForm>
+                    <UserSelect onChange={handleChange}>
+                      <option>select a user</option>
+                      {users.map(user => {
+                        return (
+                          <option key={user.username} value={user.username}>
+                            {user.username}
+                          </option>
+                        );
+                      })}
+                    </UserSelect>
+                    <LogInButton onClick={LogInClick}>Sign In</LogInButton>
+                  </LogInForm>
                 </UserIconLoggedOut>
               )}
             </>

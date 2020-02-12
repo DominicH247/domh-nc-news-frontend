@@ -7,7 +7,16 @@ import PostComment from "./PostComment";
 import { UserLogInContext } from "../contexts/UserLogInContext";
 
 // COMPONENT STYLING
+
 const ArticleDetailStyled = styled.section`
+  @media only screen and (min-width: 601px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 80%;
+    width: 80vw;
+  }
+
   /* MOBILE */
   background-color: #376b7b;
   padding: 10px 30px;
@@ -15,6 +24,12 @@ const ArticleDetailStyled = styled.section`
 `;
 
 const CommentsSection = styled.section`
+  @media only screen and (min-width: 601px) {
+    display: flex;
+    flex-direction: column;
+    margin-left: 80%;
+    width: 80vw;
+  }
   /* MOBILE */
   color: white;
   padding-top: 20px;

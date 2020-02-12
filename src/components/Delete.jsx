@@ -7,6 +7,7 @@ const DeleteButton = styled.button`
   border-radius: 5px;
   color: white;
   background-color: #376b7b;
+  padding-top: 5px;
   font-family: Spartan;
   text-align: center;
   margin-bottom: 10px;

@@ -22,15 +22,32 @@ const TopicCardDiv = styled.div`
 `;
 
 const TopicP = styled.p`
-  margin-top: 5px;
+  margin-top: 10px;
   margin-bottom: 5px;
 `;
 
-const TopicCard = ({ slug, description }) => {
+const TopicIconP = styled.p`
+  margin-top: 20px;
+  margin-bottom: 5px;
+  margin-left: 60px;
+`;
+
+const TopicIcon = styled.div`
+  background-image: url(${props => props.topic_icon});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left;
+  height: 50px;
+  width: auto;
+`;
+
+const TopicCard = ({ slug, description, topic_icon }) => {
   return (
     <Link to={`/topics/${slug}/articles`}>
       <TopicCardDiv>
-        <TopicP>t/ {slug}</TopicP>
+        <TopicIcon topic_icon={topic_icon}>
+          <TopicIconP>t/ {slug}</TopicIconP>
+        </TopicIcon>
         <TopicP>{description}</TopicP>
       </TopicCardDiv>
     </Link>

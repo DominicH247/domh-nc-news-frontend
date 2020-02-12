@@ -2,21 +2,21 @@ import React from "react";
 import styled from "styled-components";
 import logo from "../images/nc-news-logo.png";
 import CurrentUserTile from "./CurrentUserTile";
-import SearchBar from "./SearchBar";
 
 // COMPONENT STYLING
 const TitleHeaderContainer = styled.header`
   @media only screen and (min-width: 601px) {
     grid-area: 1/1/2/3;
-    grid-template-columns: 150px 1fr 100px;
+    grid-template-columns: 150px 1fr 150px;
     display: grid;
     height: 130px;
+    justify-content: center;
     background-color: #154854;
   }
 
   @media only screen and (max-width: 600px) {
     /* MOBILE  */
-    grid-template-columns: 150px 1fr 100px;
+    grid-template-columns: 150px 1fr 120px;
     display: grid;
     height: 130px;
     background-color: #154854;
@@ -36,12 +36,12 @@ const Logo = styled.div`
   background-position: center;
   color: white;
   margin-top: 10px;
+  text-align: center;
 `;
 
 const Title = () => {
   return (
     <TitleHeaderContainer>
-      <SearchBar />
       <Logo></Logo>
       <CurrentUserTile />
     </TitleHeaderContainer>
