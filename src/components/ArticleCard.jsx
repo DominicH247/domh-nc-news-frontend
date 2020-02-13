@@ -1,5 +1,4 @@
 import React from "react";
-// import { ArticleDetailContext } from "../contexts/ArticleDetailContext";
 import { Link } from "@reach/router";
 import styled from "styled-components";
 import Voter from "./Voter";
@@ -59,7 +58,6 @@ const ArticleCard = ({
 
   const formattedDate = `${createdAt.getDate()}-${createdAt.getMonth()}-${createdAt.getFullYear()}, ${createdAt.getHours()}:${createdAt.getMinutes()}:${createdAt.getSeconds()}`;
 
-  console.log(createdAt.getDate());
   return (
     <ArticleCardDiv>
       t/ {topic} <br />

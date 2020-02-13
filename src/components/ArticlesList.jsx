@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import ArticleCard from "./ArticleCard";
 import * as api from "../utils/api";
+import * as utils from "../utils/index";
 import TopicsList from "./TopicsList";
 import { ThemeContext } from "../contexts/ThemeContext";
 import SearchBar from "./SearchBar";
@@ -61,9 +62,9 @@ const SortByFormLabel = styled.label`
 `;
 
 const SortByFormSelect = styled.select`
-  @media only screen and (min-width: 60px) {
+  @media only screen and (min-width: 600px) {
     /* DESKTOP */
-    font-size: 1.2em;
+    font-size: 1em;
   }
 
   margin-left: 10px;
@@ -77,6 +78,8 @@ const SortByFormSelect = styled.select`
 class ArticlesList extends Component {
   state = {
     articles: [],
+    topics: [],
+    users: [],
     query: { sortBy: undefined, order: "asc" },
     isLoading: true,
     error: false
@@ -84,7 +87,7 @@ class ArticlesList extends Component {
 
   componentDidMount = () => {
     // Get all available articles ignoring default limit
-    this.fetchArticles();
+    this.fetchArticlesTopicsUsers();
   };
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -99,11 +102,18 @@ class ArticlesList extends Component {
     }
   };
 
-  fetchArticles = () => {
-    api
-      .getArticles(this.props, this.state.query)
-      .then(articles => {
-        this.setState({ articles, isLoading: false });
+  fetchArticlesTopicsUsers = () => {
+    const getArticlesProm = api.getArticles(this.props, this.state.query);
+    const getTopicsProm = api.getAllTopics();
+    const getUsersProm = api.getAllUsers();
+
+    Promise.all([getArticlesProm, getTopicsProm, getUsersProm])
+      .then(([articles, topics, users]) => {
+        console.log(topics);
+        const formattedArticles = utils.formatArticles(articles, topics, users);
+        console.log(formattedArticles, "HERE");
+
+        this.setState({ articles, topics, users, isLoading: false });
       })
       .catch(error => {
         console.log(error);

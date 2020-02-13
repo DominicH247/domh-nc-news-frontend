@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 const SearchForm = styled.form`
+  @media only screen and (max-width: 600px) {
+    text-align: left;
+  }
   text-align: center;
   grid-column-start: 3;
   justify-content: center;
@@ -10,6 +13,11 @@ const SearchForm = styled.form`
 `;
 
 const SearchFormInput = styled.input`
+  @media only screen and (max-width: 400px) {
+    width: 120px;
+    font-size: 0.8em;
+  }
+  width: 150px;
   border-radius: 5px;
   font-family: Spartan;
   padding-top: 5px;
@@ -55,7 +63,7 @@ class SearchBar extends Component {
             type="text"
             onChange={this.handleFormInputChange}
             value={this.state.searchInput}
-            placeholder="Search by article title"
+            placeholder="By article title"
           />
         </SearchFormLabel>
         <SearchButton>Search</SearchButton>
