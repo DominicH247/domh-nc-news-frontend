@@ -46,10 +46,6 @@ const ArticleCardDiv = styled.div`
   }
 `;
 
-// const userImage = styled.img`
-//   background-image: url(${props => props.OutAvatarUrl})
-// `
-
 const ArticleCard = ({
   topic,
   title,
@@ -60,7 +56,9 @@ const ArticleCard = ({
   votes
 }) => {
   const createdAt = new Date(created_at);
-  const formattedDate = `${createdAt.getDate()}-${createdAt.getMonth()}-${createdAt.getFullYear()},${createdAt.getHours()}:${createdAt.getMinutes()}:${createdAt.getSeconds()}`;
+
+  const formattedDate = `${createdAt.getDate()}-${createdAt.getMonth()}-${createdAt.getFullYear()}, ${createdAt.getHours()}:${createdAt.getMinutes()}:${createdAt.getSeconds()}`;
+
   console.log(createdAt.getDate());
   return (
     <ArticleCardDiv>
@@ -69,11 +67,13 @@ const ArticleCard = ({
       <Link to={`/articles/${article_id}`}>
         {title} <br />
       </Link>
-      At {formattedDate}
-      <br />
-      Comment count {comment_count}
-      <br />
-      <Voter votes={votes} id={article_id} type={"articles"} />
+      Date: {formattedDate}
+      <Voter
+        votes={votes}
+        id={article_id}
+        type={"articles"}
+        comment_count={comment_count}
+      />
       <br />
     </ArticleCardDiv>
   );

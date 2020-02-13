@@ -145,11 +145,18 @@ class ArticleDetail extends Component {
                 <p>Posted by u/ {author}</p>
                 <p>Created at {created_at}</p>
                 <p>{body}</p>
-                <Voter votes={votes} id={article_id} type={"articles"} />
+
+                <Voter
+                  votes={votes}
+                  id={article_id}
+                  type={"articles"}
+                  comment_count={comment_count}
+                />
               </ArticleDetailStyled>
+
               <CommentsSection>
                 {/* COMMENTS | SORT-BY | ORDER | ADD COMMENT Comments{" "} */}
-                <p>{comment_count}</p>
+
                 <PostComment
                   article_id={article_id}
                   insertComment={this.insertComment}
