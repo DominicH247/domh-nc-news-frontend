@@ -1,3 +1,15 @@
+const createRef = (array, firstKey, secondKey) => {
+  const arrayCopy = [...array];
+
+  const refObject = {};
+
+  arrayCopy.forEach(item => {
+    refObject[item[firstKey]] = item[secondKey];
+  });
+
+  return refObject;
+};
+
 const formatArticles = (articles, topics, users) => {
   const articlesCopy = [...articles];
 
@@ -24,4 +36,4 @@ const formatArticles = (articles, topics, users) => {
   return articlesFormatted;
 };
 
-module.exports = { formatArticles };
+module.exports = { formatArticles, createRef };

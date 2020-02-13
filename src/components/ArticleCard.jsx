@@ -22,7 +22,7 @@ const ArticleCardDiv = styled.div`
     border-width: 1px;
     border-color: #376b7b;
     border-radius: 5px;
-    line-height: 1.8em;
+    line-height: 1.5em;
     height: auto;
     font-size: 1.2em;
   }
@@ -42,7 +42,47 @@ const ArticleCardDiv = styled.div`
     border-radius: 5px;
     line-height: 1.8em;
     height: auto;
+    font-size: 1.2em;
   }
+`;
+
+const TopicIcon = styled.div`
+  background-image: url(${props => props.topic_icon});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left;
+  height: 30px;
+  width: auto;
+  margin-bottom: 10px;
+`;
+
+const TopicIconP = styled.p`
+  margin-left: 40px;
+  margin-bottom: 0;
+  margin-top: 0;
+`;
+
+const AuthorIcon = styled.div`
+  background-image: url(${props => props.author_icon});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left;
+  height: 30px;
+  width: auto;
+  margin-bottom: 10px;
+`;
+
+const AuthorIconP = styled.p`
+  margin-left: 40px;
+  margin-bottom: 0;
+  margin-top: 0;
+  font-size: 0.8em;
+`;
+
+const DateP = styled.p`
+  margin-bottom: 0;
+  margin-top: 5px;
+  font-size: 0.8em;
 `;
 
 const ArticleCard = ({
@@ -52,27 +92,33 @@ const ArticleCard = ({
   created_at,
   article_id,
   comment_count,
-  votes
+  votes,
+  topic_icon,
+  author_icon
 }) => {
   const createdAt = new Date(created_at);
 
-  const formattedDate = `${createdAt.getDate()}-${createdAt.getMonth()}-${createdAt.getFullYear()}, ${createdAt.getHours()}:${createdAt.getMinutes()}:${createdAt.getSeconds()}`;
+  const formattedDate = `${createdAt.getDate()}-${createdAt.getMonth()}-${createdAt.getFullYear()}`;
 
   return (
     <ArticleCardDiv>
-      t/ {topic} <br />
-      Posted by u/ {author} <br />
+      <TopicIcon topic_icon={topic_icon}>
+        <TopicIconP>t/ {topic}</TopicIconP>
+      </TopicIcon>
+      <AuthorIcon author_icon={author_icon}>
+        <AuthorIconP>Posted by u/ {author}</AuthorIconP>
+      </AuthorIcon>
       <Link to={`/articles/${article_id}`}>
-        {title} <br />
+        {title}
+        <br />
       </Link>
-      Date: {formattedDate}
+      <DateP>Date: {formattedDate}</DateP>
       <Voter
         votes={votes}
         id={article_id}
         type={"articles"}
         comment_count={comment_count}
       />
-      <br />
     </ArticleCardDiv>
   );
 };

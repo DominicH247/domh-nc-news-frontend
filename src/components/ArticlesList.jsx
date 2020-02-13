@@ -78,8 +78,6 @@ const SortByFormSelect = styled.select`
 class ArticlesList extends Component {
   state = {
     articles: [],
-    topics: [],
-    users: [],
     query: { sortBy: undefined, order: "asc" },
     isLoading: true,
     error: false
@@ -92,13 +90,13 @@ class ArticlesList extends Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if (prevProps.slug !== this.props.slug) {
-      this.fetchArticles(this.props);
+      this.fetchArticlesTopicsUsers(this.props);
     }
     if (
       prevState.query.sortBy !== this.state.query.sortBy ||
       prevState.query.order !== this.state.query.order
     ) {
-      this.fetchArticles();
+      this.fetchArticlesTopicsUsers();
     }
   };
 
@@ -111,9 +109,10 @@ class ArticlesList extends Component {
       .then(([articles, topics, users]) => {
         console.log(topics);
         const formattedArticles = utils.formatArticles(articles, topics, users);
-        console.log(formattedArticles, "HERE");
 
-        this.setState({ articles, topics, users, isLoading: false });
+        this.setState({ articles: formattedArticles, isLoading: false }, () => {
+          console.log(this.state, "HERE");
+        });
       })
       .catch(error => {
         console.log(error);
