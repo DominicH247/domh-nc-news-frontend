@@ -4,8 +4,8 @@ import ArticleCard from "./ArticleCard";
 import * as api from "../utils/api";
 import TopicsList from "./TopicsList";
 import { ThemeContext } from "../contexts/ThemeContext";
-
 import SearchBar from "./SearchBar";
+import Loading from "./Loading";
 
 // COMPONENT STYLING
 
@@ -130,7 +130,7 @@ class ArticlesList extends Component {
         {context => {
           const { width } = context;
           if (this.state.isLoading) {
-            return <p>LOADING</p>;
+            return <Loading />;
           }
 
           return (

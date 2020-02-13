@@ -6,6 +6,7 @@ import CommentCard from "./CommentCard";
 import PostComment from "./PostComment";
 import { UserLogInContext } from "../contexts/UserLogInContext";
 import CustomErrorDisplay from "./CustomErrorDisplay";
+import Loading from "./Loading";
 
 // COMPONENT STYLING
 
@@ -55,7 +56,8 @@ class ArticleDetail extends Component {
       status: "",
       msg: "",
       active: false
-    }
+    },
+    isLoading: true
   };
 
   componentDidMount = () => {
@@ -76,7 +78,7 @@ class ArticleDetail extends Component {
 
     Promise.all([articleByIdProm, commentByArticleIdProm])
       .then(([article, comments]) => {
-        this.setState({ article, comments });
+        this.setState({ article, comments, isLoading: false });
       })
       .catch(({ response }) => {
         if (response) {
@@ -133,6 +135,11 @@ class ArticleDetail extends Component {
     if (this.state.error.active && this.state.error.status === 404) {
       return <CustomErrorDisplay {...this.state.error} />;
     }
+
+    if (this.state.isLoading) {
+      return <Loading />;
+    }
+
     return (
       <UserLogInContext.Consumer>
         {context => {

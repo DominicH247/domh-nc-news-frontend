@@ -3,6 +3,7 @@ import * as api from "../utils/api";
 import styled from "styled-components";
 import TopicCard from "../components/TopicCard";
 import { ThemeContext } from "../contexts/ThemeContext";
+import Loading from "./Loading";
 
 const MainStyledDesktop = styled.main`
   width: 80vw;
@@ -49,17 +50,8 @@ class TopicsList extends Component {
     const { topics } = this.state;
 
     if (this.state.isLoading) {
-      return <p>LOADING</p>; // TO MAKE COMPONENT
+      return <Loading />; // TO MAKE COMPONENT
     }
-
-    // return (
-    //   <MainStyled>
-    //     <MainListH1>Topics</MainListH1>
-    //     {topics.map(topic => {
-    //       return <TopicCard key={topic.slug} {...topic} />;
-    //     })}
-    //   </MainStyled>
-    // );
 
     return this.props.path === "/topics" && width > 601 ? (
       <MainStyledDesktop>
