@@ -5,6 +5,7 @@ import Voter from "./Voter";
 import CommentCard from "./CommentCard";
 import PostComment from "./PostComment";
 import { UserLogInContext } from "../contexts/UserLogInContext";
+import CustomErrorDisplay from "./CustomErrorDisplay";
 
 // COMPONENT STYLING
 
@@ -37,10 +38,24 @@ const CommentsSection = styled.section`
   margin-right: 15px;
 `;
 
+const CommentErrorP = styled.section`
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 7px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  background: rgba(184, 116, 37, 0.8);
+`;
+
 class ArticleDetail extends Component {
   state = {
     article: {},
-    comments: []
+    comments: [],
+    error: {
+      status: "",
+      msg: "",
+      active: false
+    }
   };
 
   componentDidMount = () => {
@@ -59,11 +74,24 @@ class ArticleDetail extends Component {
       this.props.article_id
     );
 
-    Promise.all([articleByIdProm, commentByArticleIdProm]).then(
-      ([article, comments]) => {
+    Promise.all([articleByIdProm, commentByArticleIdProm])
+      .then(([article, comments]) => {
         this.setState({ article, comments });
-      }
-    );
+      })
+      .catch(({ response }) => {
+        if (response) {
+          this.setState(currentState => {
+            return {
+              error: {
+                ...currentState.error,
+                status: response.status,
+                msg: response.data.msg,
+                active: !currentState.error.active
+              }
+            };
+          });
+        }
+      });
   };
 
   insertComment = (username, body) => {
@@ -75,15 +103,23 @@ class ArticleDetail extends Component {
           return { comments: [comment, ...currentState.comments] };
         });
       })
-      .catch(err => {
-        if (err) {
-          console.log(err.response.data);
+      .catch(({ response }) => {
+        if (response) {
+          this.setState(currentState => {
+            return {
+              error: {
+                ...currentState.error,
+                status: response.status,
+                msg: response.data.msg,
+                active: !currentState.error.active
+              }
+            };
+          });
         }
       });
   };
 
   render() {
-    // destructure article details
     const {
       author,
       body,
@@ -94,6 +130,9 @@ class ArticleDetail extends Component {
       article_id
     } = this.state.article;
 
+    if (this.state.error.active && this.state.error.status === 404) {
+      return <CustomErrorDisplay {...this.state.error} />;
+    }
     return (
       <UserLogInContext.Consumer>
         {context => {
@@ -117,6 +156,12 @@ class ArticleDetail extends Component {
                   username={username}
                   isLoggedIn={isLoggedIn}
                 />
+                {this.state.error.active && (
+                  <CommentErrorP>
+                    Sorry there was an issue with posting your comment. Please
+                    try again later.
+                  </CommentErrorP>
+                )}
                 {this.state.comments.map(comment => {
                   return (
                     <CommentCard

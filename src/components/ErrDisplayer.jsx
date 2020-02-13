@@ -2,51 +2,50 @@ import React from "react";
 
 const ErrDisplayer = () => {
   return (
-    // <section>
-    //   Oops... Looks like you got lost
-    //   <button>Home</button>
-    // </section>
-
-    <section class="bg-purple">
-      <div class="stars">
-        <div class="central-body">
+    <section className="bg-purple">
+      <div className="stars">
+        <div className="central-body">
           <img
-            class="image-404"
+            className="image-404"
             src="http://salehriaz.com/404Page/img/404.svg"
+            alt="404 image"
           />
         </div>
-        <div class="objects">
+        <div className="objects">
           <img
-            class="object_rocket"
+            className="object_rocket"
             src="http://salehriaz.com/404Page/img/rocket.svg"
-            width="40px"
+            width="50px"
+            alt="rocket"
           />
-          <div class="earth-moon">
+          <div className="earth-moon">
             <img
-              class="object_earth"
+              className="object_earth"
               src="http://salehriaz.com/404Page/img/earth.svg"
               width="100px"
+              alt="earth"
             />
             <img
-              class="object_moon"
+              className="object_moon"
               src="http://salehriaz.com/404Page/img/moon.svg"
               width="80px"
+              alt="moon"
             />
           </div>
-          <div class="box_astronaut">
+          <div className="box_astronaut">
             <img
-              class="object_astronaut"
+              className="object_astronaut"
               src="http://salehriaz.com/404Page/img/astronaut.svg"
               width="140px"
             />
           </div>
         </div>
-        <div class="glowing_stars">
-          <div class="star"></div>
-          <div class="star"></div>
-          <div class="star"></div>
-          <div class="star"></div>
-          <div class="star"></div>
+        <div className="glowing_stars">
+          <div className="star"></div>
+          <div className="star"></div>
+          <div className="star"></div>
+          <div className="star"></div>
+          <div className="star"></div>
         </div>
       </div>
     </section>

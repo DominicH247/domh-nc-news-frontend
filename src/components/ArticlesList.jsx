@@ -78,7 +78,8 @@ class ArticlesList extends Component {
   state = {
     articles: [],
     query: { sortBy: undefined, order: "asc" },
-    isLoading: true
+    isLoading: true,
+    error: false
   };
 
   componentDidMount = () => {
@@ -94,15 +95,19 @@ class ArticlesList extends Component {
       prevState.query.sortBy !== this.state.query.sortBy ||
       prevState.query.order !== this.state.query.order
     ) {
-      console.log("HERE");
       this.fetchArticles();
     }
   };
 
   fetchArticles = () => {
-    api.getArticles(this.props, this.state.query).then(articles => {
-      this.setState({ articles, isLoading: false });
-    });
+    api
+      .getArticles(this.props, this.state.query)
+      .then(articles => {
+        this.setState({ articles, isLoading: false });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   handleChange = ({ target: { value, id } }) => {
@@ -110,8 +115,6 @@ class ArticlesList extends Component {
   };
 
   applySearchFilter = searchInput => {
-    console.log(searchInput, "HERE");
-
     const matcherReg = new RegExp(`${searchInput}`, "gi");
 
     const filteredArticles = this.state.articles.filter(article => {
@@ -127,7 +130,6 @@ class ArticlesList extends Component {
         {context => {
           const { width } = context;
           if (this.state.isLoading) {
-            // TO ADD LOADING COMPONENT
             return <p>LOADING</p>;
           }
 
