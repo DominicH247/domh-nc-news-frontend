@@ -1,4 +1,4 @@
-const { createRef } = require("../utils/index.js");
+const { createRef, formatArticles } = require("../utils/index.js");
 
 describe("createRef(), created a reference object from the given array of objects and the desired key", () => {
   test("When passed in a single object and two strings which act as the desired keys, it will generate a new reference object and returns it", () => {
@@ -30,6 +30,40 @@ describe("createRef(), created a reference object from the given array of object
     expect(testArr).toEqual([
       { slug: "this is a test1", icon: "www.image1.com" },
       { slug: "this is a test2", icon: "www.image2.com" }
+    ]);
+  });
+});
+
+describe("formatArticles(), modifies the array of article objects by adding the corresponding topic icon and user avatar to the object", () => {
+  test("When passed in a single article object and two reference objects , the the key value pairs are added to the new article object", () => {
+    const articleList = [
+      { title: "the title", username: "test user", slug: "football" }
+    ];
+    const refObj = { football: "www.topicIcon.com" };
+    const modifiedArticle = [
+      {
+        title: "the title",
+        username: "test user",
+        slug: "football",
+        topicIcon: "www.topicIcon.com"
+      }
+    ];
+
+    expect(formatArticles(articleList, refObj, "topicIcon", "slug")).toEqual(
+      modifiedArticle
+    );
+  });
+  test("Does not modify the original array", () => {
+    const articleList = [
+      { title: "the title", username: "test user", slug: "football" }
+    ];
+
+    const refObj = { football: "www.topicIcon.com" };
+
+    formatArticles(articleList, refObj, "topicIcon", "slug");
+
+    expect(articleList).toEqual([
+      { title: "the title", username: "test user", slug: "football" }
     ]);
   });
 });

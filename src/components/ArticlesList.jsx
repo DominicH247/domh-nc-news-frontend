@@ -108,6 +108,10 @@ class ArticlesList extends Component {
     Promise.all([getArticlesProm, getTopicsProm, getUsersProm])
       .then(([articles, topics, users]) => {
         console.log(topics);
+
+        const topicRefObj = utils.createRef(topics, "slug", "topic_icon");
+        const userRefObj = utils.createRef(users, "username", "avatar_url");
+
         const formattedArticles = utils.formatArticles(articles, topics, users);
 
         this.setState({ articles: formattedArticles, isLoading: false }, () => {
