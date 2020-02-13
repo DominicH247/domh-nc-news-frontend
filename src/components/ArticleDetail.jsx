@@ -7,6 +7,7 @@ import PostComment from "./PostComment";
 import { UserLogInContext } from "../contexts/UserLogInContext";
 import CustomErrorDisplay from "./CustomErrorDisplay";
 import Loading from "./Loading";
+import * as utils from "../utils/index";
 
 // COMPONENT STYLING
 
@@ -48,6 +49,39 @@ const CommentErrorP = styled.section`
   background: rgba(184, 116, 37, 0.8);
 `;
 
+const TopicIconP = styled.p`
+  margin-left: 40px;
+  margin-bottom: 0;
+  margin-top: 0;
+`;
+
+const TopicIcon = styled.div`
+  background-image: url(${props => props.topic_icon});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left;
+  height: 60px;
+  width: auto;
+  margin-bottom: 10px;
+`;
+
+const AuthorIcon = styled.div`
+  background-image: url(${props => props.author_icon});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left;
+  height: 35px;
+  width: auto;
+  margin-bottom: 10px;
+`;
+
+const AuthorIconP = styled.p`
+  margin-left: 40px;
+  margin-bottom: 0;
+  margin-top: 0;
+  font-size: 0.8em;
+`;
+
 class ArticleDetail extends Component {
   state = {
     article: {},
@@ -75,10 +109,38 @@ class ArticleDetail extends Component {
     const commentByArticleIdProm = api.getCommentsByArticleId(
       this.props.article_id
     );
+    const getTopicsProm = api.getAllTopics();
+    const getUsersProm = api.getAllUsers();
 
-    Promise.all([articleByIdProm, commentByArticleIdProm])
-      .then(([article, comments]) => {
-        this.setState({ article, comments, isLoading: false });
+    Promise.all([
+      articleByIdProm,
+      commentByArticleIdProm,
+      getTopicsProm,
+      getUsersProm
+    ])
+      .then(([article, comments, topics, users]) => {
+        const topicRefObj = utils.createRef(topics, "slug", "topic_icon");
+        const userRefOb = utils.createRef(users, "username", "avatar_url");
+
+        const formattedArticlesTopicIcon = utils.formatArticles(
+          [article],
+          topicRefObj,
+          "topic_icon",
+          "topic"
+        );
+
+        const formattedArticle = utils.formatArticles(
+          formattedArticlesTopicIcon,
+          userRefOb,
+          "avatar_url",
+          "author"
+        );
+
+        this.setState({
+          article: formattedArticle[0],
+          comments,
+          isLoading: false
+        });
       })
       .catch(({ response }) => {
         if (response) {
@@ -139,6 +201,7 @@ class ArticleDetail extends Component {
     if (this.state.isLoading) {
       return <Loading />;
     }
+    console.log(this.state);
 
     return (
       <UserLogInContext.Consumer>
@@ -148,7 +211,13 @@ class ArticleDetail extends Component {
           return (
             <>
               <ArticleDetailStyled>
+                <TopicIcon
+                  topic_icon={this.state.article.topic_icon}
+                ></TopicIcon>
                 <p>t/ {topic}</p>
+                <AuthorIcon
+                  author_icon={this.state.article.avatar_url}
+                ></AuthorIcon>
                 <p>Posted by u/ {author}</p>
                 <p>Created at {created_at}</p>
                 <p>{body}</p>

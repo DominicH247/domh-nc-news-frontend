@@ -112,11 +112,21 @@ class ArticlesList extends Component {
         const topicRefObj = utils.createRef(topics, "slug", "topic_icon");
         const userRefObj = utils.createRef(users, "username", "avatar_url");
 
-        const formattedArticles = utils.formatArticles(articles, topics, users);
+        const formattedArticleTopic = utils.formatArticles(
+          articles,
+          topicRefObj,
+          "topic_icon",
+          "topic"
+        );
 
-        this.setState({ articles: formattedArticles, isLoading: false }, () => {
-          console.log(this.state, "HERE");
-        });
+        const formattedArticles = utils.formatArticles(
+          formattedArticleTopic,
+          userRefObj,
+          "avatar_url",
+          "username"
+        );
+
+        this.setState({ articles: formattedArticles, isLoading: false });
       })
       .catch(error => {
         console.log(error);

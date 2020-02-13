@@ -8,7 +8,7 @@ const ErrDisplayer = () => {
           <img
             className="image-404"
             src="http://salehriaz.com/404Page/img/404.svg"
-            alt="404 image"
+            alt="404"
           />
         </div>
         <div className="objects">
@@ -37,6 +37,7 @@ const ErrDisplayer = () => {
               className="object_astronaut"
               src="http://salehriaz.com/404Page/img/astronaut.svg"
               width="140px"
+              alt="astronaut"
             />
           </div>
         </div>
