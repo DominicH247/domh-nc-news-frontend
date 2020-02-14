@@ -26,10 +26,11 @@ const CommentInput = styled.textarea`
   background-color: #ede9e9;
   font-family: Spartan;
   vertical-align: middle;
+  resize: none;
 
   &:focus {
     height: 500px;
-    width: 700px;
+    width: 90%;
     padding-bottom: 0;
     padding-left: 10px;
     line-height: 1em;
