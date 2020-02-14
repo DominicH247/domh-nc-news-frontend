@@ -102,17 +102,17 @@ const ArticleCard = ({
 
   return (
     <ArticleCardDiv>
-      <TopicIcon topic_icon={topic_icon}>
-        <TopicIconP>t/ {topic}</TopicIconP>
-      </TopicIcon>
-      <AuthorIcon author_icon={avatar_url}>
-        <AuthorIconP>Posted by u/ {author}</AuthorIconP>
-      </AuthorIcon>
       <Link to={`/articles/${article_id}`}>
+        <TopicIcon topic_icon={topic_icon}>
+          <TopicIconP>t/ {topic}</TopicIconP>
+        </TopicIcon>
+        <AuthorIcon author_icon={avatar_url}>
+          <AuthorIconP>Posted by u/ {author}</AuthorIconP>
+        </AuthorIcon>
         {title}
         <br />
+        <DateP>Date: {formattedDate}</DateP>
       </Link>
-      <DateP>Date: {formattedDate}</DateP>
       <Voter
         votes={votes}
         id={article_id}

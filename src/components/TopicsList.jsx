@@ -31,6 +31,18 @@ const MainListH1 = styled.h1`
   color: white;
 `;
 
+const AllArticlesButton = styled.button`
+  justify-content: space-evenly;
+  text-align: center;
+  border: solid 1px #376b7b;
+  border-radius: 5px;
+  padding-top: 5px;
+  color: white;
+  background-color: #376b7b;
+  font-family: Spartan;
+  margin-bottom: 20px;
+`;
+
 class TopicsList extends Component {
   state = {
     topics: [],
@@ -63,9 +75,12 @@ class TopicsList extends Component {
     ) : (
       <MainStyled>
         <MainListH1>Topics</MainListH1>
-        <Link to="/">
-          <button>All</button>
-        </Link>
+
+        {width > 601 && (
+          <Link to="/">
+            <AllArticlesButton>View All Topics</AllArticlesButton>
+          </Link>
+        )}
 
         {topics.map(topic => {
           return (
