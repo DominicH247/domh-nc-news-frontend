@@ -19,6 +19,7 @@ const TopicCardDiv = styled.div`
   border-color: #376b7b;
   border-radius: 5px;
   height: auto;
+  box-shadow: 0 0 35px ${props => props.shadow_color};
 `;
 
 const TopicP = styled.p`
@@ -41,10 +42,10 @@ const TopicIcon = styled.div`
   width: auto;
 `;
 
-const TopicCard = ({ slug, description, topic_icon }) => {
+const TopicCard = ({ slug, description, topic_icon, path_slug }) => {
   return (
     <Link to={`/topics/${slug}/articles`}>
-      <TopicCardDiv>
+      <TopicCardDiv shadow_color={slug === path_slug ? "white" : "transparent"}>
         <TopicIcon topic_icon={topic_icon}>
           <TopicIconP>t/ {slug}</TopicIconP>
         </TopicIcon>

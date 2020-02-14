@@ -62,8 +62,15 @@ class TopicsList extends Component {
     ) : (
       <MainStyled>
         <MainListH1>Topics</MainListH1>
+
         {topics.map(topic => {
-          return <TopicCard key={topic.slug} {...topic} />;
+          return (
+            <TopicCard
+              key={topic.slug}
+              {...topic}
+              path_slug={this.props.slug}
+            />
+          );
         })}
       </MainStyled>
     );

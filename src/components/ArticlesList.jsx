@@ -107,8 +107,6 @@ class ArticlesList extends Component {
 
     Promise.all([getArticlesProm, getTopicsProm, getUsersProm])
       .then(([articles, topics, users]) => {
-        console.log(topics);
-
         const topicRefObj = utils.createRef(topics, "slug", "topic_icon");
         const userRefObj = utils.createRef(users, "username", "avatar_url");
 
@@ -160,7 +158,7 @@ class ArticlesList extends Component {
 
           return (
             <MainStyled>
-              {width > 601 && <TopicsList />}
+              {width > 601 && <TopicsList slug={this.props.slug} />}
 
               <MainListH1>Articles </MainListH1>
               <SearchBar applySearchFilter={this.applySearchFilter} />
