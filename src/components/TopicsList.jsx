@@ -13,7 +13,6 @@ const MainStyledDesktop = styled.main`
 const MainStyled = styled.main`
   @media only screen and (min-width: 601px) {
     grid-column-start: 2;
-    /* width: 100%; */
   }
   /* MOBILE */
   width: 80%;

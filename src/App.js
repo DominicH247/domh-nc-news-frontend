@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Router } from "@reach/router";
 import "./App.css";
 import { AppStyles } from "./styles/AppStyles.jsx";
@@ -11,27 +11,24 @@ import ErrDisplayer from "./components/ErrDisplayer";
 import UserLogInContextProvider from "./contexts/UserLogInContext";
 import ThemeContextProvider from "./contexts/ThemeContext";
 
-class App extends Component {
-  state = {};
-  render() {
-    return (
-      <UserLogInContextProvider>
-        <ThemeContextProvider>
-          <AppStyles>
-            <Title />
-            <NavBar />
-            <Router>
-              <ArticlesList path="/" />
-              <ArticlesList path="/topics/:slug/articles" />
-              <TopicsList path="/topics" />
-              <ArticleDetail path="/articles/:article_id" />
-              <ErrDisplayer default />
-            </Router>
-          </AppStyles>
-        </ThemeContextProvider>
-      </UserLogInContextProvider>
-    );
-  }
-}
+const App = () => {
+  return (
+    <UserLogInContextProvider>
+      <ThemeContextProvider>
+        <AppStyles>
+          <Title />
+          <NavBar />
+          <Router>
+            <ArticlesList path="/" />
+            <ArticlesList path="/topics/:slug/articles" />
+            <TopicsList path="/topics" />
+            <ArticleDetail path="/articles/:article_id" />
+            <ErrDisplayer default />
+          </Router>
+        </AppStyles>
+      </ThemeContextProvider>
+    </UserLogInContextProvider>
+  );
+};
 
 export default App;

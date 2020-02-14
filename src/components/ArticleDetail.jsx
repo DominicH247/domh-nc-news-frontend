@@ -11,33 +11,61 @@ import * as utils from "../utils/index";
 
 // COMPONENT STYLING
 
-const ArticleDetailStyled = styled.section`
+const ArticleDetailContainer = styled.section`
   @media only screen and (min-width: 601px) {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: 80%;
-    width: 80vw;
+    display: grid;
+    grid-template-columns: auto 50% auto;
+    grid-template-rows: auto;
+    grid-row-gap: 10px;
+    width: 100vw;
   }
-
   /* MOBILE */
-  background-color: #376b7b;
   padding: 10px 30px;
   color: white;
 `;
 
-const CommentsSection = styled.section`
+const ArticleDetailStylingDiv = styled.div`
+  grid-column-start: 2;
+  background-color: #376b7b;
+  border: solid #376b7b;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+`;
+
+const DetailBodyP = styled.p`
+  grid-area: 3/2/4/3;
+  margin-top: 0;
+  margin-bottom: 0;
+`;
+
+const CommentContainerDiv = styled.section`
   @media only screen and (min-width: 601px) {
-    display: flex;
-    flex-direction: column;
-    margin-left: 80%;
-    width: 80vw;
+    display: grid;
+    grid-template-columns: auto 50% auto;
+    grid-template-rows: auto;
+    grid-row-gap: 10px;
+    width: 100vw;
+
+    margin: 0;
   }
-  /* MOBILE */
   color: white;
   padding-top: 20px;
   margin-left: 15px;
   margin-right: 15px;
+`;
+
+const PostCommentContainerDiv = styled.div`
+  grid-area: 1/2/2/3;
+  margin-left: 13px;
+  margin-right: 13px;
+`;
+
+const CommentCardContainerDiv = styled.div`
+  grid-area: 2/2/3/3;
+  color: white;
+  margin-left: 25px;
+  margin-right: 25px;
 `;
 
 const CommentErrorP = styled.section`
@@ -50,9 +78,10 @@ const CommentErrorP = styled.section`
 `;
 
 const TopicIconP = styled.p`
-  margin-left: 40px;
+  margin-left: 75px;
   margin-bottom: 0;
-  margin-top: 0;
+  margin-top: 25px;
+  font-size: 1.2em;
 `;
 
 const TopicIcon = styled.div`
@@ -63,9 +92,13 @@ const TopicIcon = styled.div`
   height: 60px;
   width: auto;
   margin-bottom: 10px;
+  grid-area: 1/2/2/3;
 `;
 
 const AuthorIcon = styled.div`
+  grid-area: 2/2/3/3;
+  display: flex;
+  justify-content: flex-start;
   background-image: url(${props => props.author_icon});
   background-size: contain;
   background-repeat: no-repeat;
@@ -76,10 +109,21 @@ const AuthorIcon = styled.div`
 `;
 
 const AuthorIconP = styled.p`
-  margin-left: 40px;
+  margin-left: 60px;
   margin-bottom: 0;
-  margin-top: 0;
+  margin-top: 10px;
   font-size: 0.8em;
+`;
+
+const DateP = styled.p`
+  margin-bottom: 0;
+  margin-top: 10px;
+  margin-left: 10px;
+  font-size: 0.8em;
+`;
+
+const VoterContainerDiv = styled.div`
+  grid-area: 4/2/5/3;
 `;
 
 class ArticleDetail extends Component {
@@ -136,9 +180,16 @@ class ArticleDetail extends Component {
           "author"
         );
 
+        const formattedComments = utils.formatArticles(
+          comments,
+          userRefOb,
+          "avatar_url",
+          "author"
+        );
+
         this.setState({
           article: formattedArticle[0],
-          comments,
+          comments: formattedComments,
           isLoading: false
         });
       })
@@ -201,7 +252,10 @@ class ArticleDetail extends Component {
     if (this.state.isLoading) {
       return <Loading />;
     }
-    console.log(this.state);
+
+    const createdAt = new Date(created_at);
+
+    const formattedDate = `${createdAt.getDate()}-${createdAt.getMonth()}-${createdAt.getFullYear()}`;
 
     return (
       <UserLogInContext.Consumer>
@@ -210,58 +264,67 @@ class ArticleDetail extends Component {
 
           return (
             <>
-              <ArticleDetailStyled>
-                <TopicIcon
-                  topic_icon={this.state.article.topic_icon}
-                ></TopicIcon>
-                <p>t/ {topic}</p>
-                <AuthorIcon
-                  author_icon={this.state.article.avatar_url}
-                ></AuthorIcon>
-                <p>Posted by u/ {author}</p>
-                <p>Created at {created_at}</p>
-                <p>{body}</p>
+              <ArticleDetailContainer>
+                <ArticleDetailStylingDiv>
+                  <TopicIcon topic_icon={this.state.article.topic_icon}>
+                    <TopicIconP>t/ {topic}</TopicIconP>
+                  </TopicIcon>
 
-                <Voter
-                  votes={votes}
-                  id={article_id}
-                  type={"articles"}
-                  comment_count={comment_count}
-                />
-              </ArticleDetailStyled>
+                  <AuthorIcon author_icon={this.state.article.avatar_url}>
+                    <AuthorIconP>Posted by u/ {author}</AuthorIconP>
+                    <DateP>Created at {formattedDate}</DateP>
+                  </AuthorIcon>
 
-              <CommentsSection>
+                  <DetailBodyP>{body}</DetailBodyP>
+
+                  <VoterContainerDiv>
+                    <Voter
+                      votes={votes}
+                      id={article_id}
+                      type={"articles"}
+                      comment_count={comment_count}
+                    />
+                  </VoterContainerDiv>
+                </ArticleDetailStylingDiv>
+              </ArticleDetailContainer>
+
+              <CommentContainerDiv>
+                <PostCommentContainerDiv>
+                  <PostComment
+                    article_id={article_id}
+                    insertComment={this.insertComment}
+                    username={username}
+                    isLoggedIn={isLoggedIn}
+                  />
+                </PostCommentContainerDiv>
                 {/* COMMENTS | SORT-BY | ORDER | ADD COMMENT Comments{" "} */}
-
-                <PostComment
-                  article_id={article_id}
-                  insertComment={this.insertComment}
-                  username={username}
-                  isLoggedIn={isLoggedIn}
-                />
                 {this.state.error.active && (
                   <CommentErrorP>
                     Sorry there was an issue with posting your comment. Please
                     try again later.
                   </CommentErrorP>
                 )}
-                {this.state.comments.map(comment => {
-                  return (
-                    <CommentCard
-                      key={comment.comment_id}
-                      author={comment.author}
-                      body={comment.body}
-                      votes={comment.votes}
-                      comment_id={comment.comment_id}
-                      type={"comments"}
-                      created_at={comment.created_at}
-                      fetchCommentsByArticleId={this.fetchCommentsByArticleId}
-                      isLoggedIn={isLoggedIn}
-                      username={username}
-                    />
-                  );
-                })}
-              </CommentsSection>
+
+                <CommentCardContainerDiv>
+                  {this.state.comments.map(comment => {
+                    return (
+                      <CommentCard
+                        key={comment.comment_id}
+                        author={comment.author}
+                        body={comment.body}
+                        votes={comment.votes}
+                        comment_id={comment.comment_id}
+                        type={"comments"}
+                        created_at={comment.created_at}
+                        fetchCommentsByArticleId={this.fetchCommentsByArticleId}
+                        isLoggedIn={isLoggedIn}
+                        username={username}
+                        author_icon={comment.avatar_url}
+                      />
+                    );
+                  })}
+                </CommentCardContainerDiv>
+              </CommentContainerDiv>
             </>
           );
         }}

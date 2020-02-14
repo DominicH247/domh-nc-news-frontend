@@ -9,6 +9,25 @@ const CommentCardSection = styled.section`
   box-shadow: 0px 1px 1px #376b7b;
 `;
 
+const AuthorIcon = styled.div`
+  background-image: url(${props => props.author_icon});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left;
+  height: 35px;
+  width: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
+const AuthorIconP = styled.p`
+  margin-left: 60px;
+  margin-bottom: 0;
+  margin-top: 15px;
+  font-size: 0.8em;
+  padding-top: 12px;
+`;
+
 const CommentCard = ({
   author,
   body,
@@ -18,13 +37,21 @@ const CommentCard = ({
   created_at,
   fetchCommentsByArticleId,
   isLoggedIn,
-  username
+  username,
+  author_icon
 }) => {
+  const createdAt = new Date(created_at);
+
+  const formattedDate = `${createdAt.getHours()}:${createdAt.getMinutes()}:${createdAt.getSeconds()}, ${createdAt.getDate()}-${createdAt.getMonth() +
+    1}-${createdAt.getFullYear()}`;
+
   return (
     <CommentCardSection>
-      <p>
-        {author} at {created_at}
-      </p>
+      <AuthorIcon author_icon={author_icon}>
+        <AuthorIconP>
+          {author} at {formattedDate}
+        </AuthorIconP>
+      </AuthorIcon>
       <p>{body}</p>
       <Voter votes={votes} id={comment_id} type={type} />
       {author === username && isLoggedIn && (

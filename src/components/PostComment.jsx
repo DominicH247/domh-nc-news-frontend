@@ -5,9 +5,8 @@ const PostCommentSection = styled.section`
   /* MOBILE */
   text-align: center;
   background-color: #376b7b;
-  padding: 10px 10px;
-  border: solid black;
-  border-color: #376b7b;
+  padding: 10px 0px 10px 0px;
+  border: solid #376b7b;
   border-radius: 10px;
 `;
 

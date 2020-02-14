@@ -94,7 +94,7 @@ const ArticleCard = ({
   comment_count,
   votes,
   topic_icon,
-  author_icon
+  avatar_url
 }) => {
   const createdAt = new Date(created_at);
 
@@ -105,7 +105,7 @@ const ArticleCard = ({
       <TopicIcon topic_icon={topic_icon}>
         <TopicIconP>t/ {topic}</TopicIconP>
       </TopicIcon>
-      <AuthorIcon author_icon={author_icon}>
+      <AuthorIcon author_icon={avatar_url}>
         <AuthorIconP>Posted by u/ {author}</AuthorIconP>
       </AuthorIcon>
       <Link to={`/articles/${article_id}`}>

@@ -8,6 +8,8 @@ const AppStyles = styled.div`
     display: grid;
     grid-template-columns: 210px auto;
     grid-template-rows: 130px 55px auto;
+    margin: 0;
+    width: 100vw;
   }
 
   @media only screen and (max-width: 600px) {

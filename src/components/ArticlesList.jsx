@@ -13,7 +13,7 @@ import Loading from "./Loading";
 const MainStyled = styled.main`
   @media only screen and (min-width: 601px) {
     /* DESKTOP */
-    width: 100vw;
+    width: 99vw;
     display: grid;
     grid-template-columns: auto 30% 40% auto;
     grid-template-rows: 100px auto;
@@ -123,10 +123,12 @@ class ArticlesList extends Component {
           formattedArticleTopic,
           userRefObj,
           "avatar_url",
-          "username"
+          "author"
         );
 
-        this.setState({ articles: formattedArticles, isLoading: false });
+        this.setState({ articles: formattedArticles, isLoading: false }, () => {
+          console.log(this.state);
+        });
       })
       .catch(error => {
         console.log(error);

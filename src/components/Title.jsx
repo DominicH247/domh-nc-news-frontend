@@ -7,8 +7,9 @@ import CurrentUserTile from "./CurrentUserTile";
 const TitleHeaderContainer = styled.header`
   @media only screen and (min-width: 601px) {
     grid-area: 1/1/2/3;
-    grid-template-columns: 150px 1fr 150px;
     display: grid;
+    grid-template-columns: 150px 1fr 150px;
+    width: 100vw;
     height: 130px;
     justify-content: center;
     background-color: #154854;
