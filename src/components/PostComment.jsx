@@ -33,6 +33,9 @@ const CommentFormButton = styled.button`
   background-color: #407d90;
   font-family: Spartan;
   text-align: center;
+  &:hover {
+    box-shadow: 0 0 5px white;
+  }
 `;
 
 class PostComment extends Component {

@@ -41,6 +41,9 @@ const AllArticlesButton = styled.button`
   background-color: #376b7b;
   font-family: Spartan;
   margin-bottom: 20px;
+  &:hover {
+    box-shadow: 0 0 5px white;
+  }
 `;
 
 class TopicsList extends Component {

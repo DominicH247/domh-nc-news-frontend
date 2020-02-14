@@ -11,6 +11,9 @@ const DeleteButton = styled.button`
   font-family: Spartan;
   text-align: center;
   margin-bottom: 10px;
+  &:hover {
+    box-shadow: 0 0 5px white;
+  }
 `;
 
 const CustomErrorP = styled.p`

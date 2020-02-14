@@ -1,14 +1,21 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Link } from "@reach/router";
-import { ThemeContext } from "../contexts/ThemeContext";
 
 //COMPONENT STYLING
+
+const rock = keyframes`
+  0%{transform: rotate(0deg)}
+  25%{transform: rotate(10deg)}
+  75%{transform: rotate(-10deg)}
+  100%{transform: rotate(0deg)}
+`;
 
 const HomeP = styled.p`
   color: white;
   &:hover {
     text-shadow: 0 0 1px white;
+    animation: ${rock} 1s 0s both;
   }
 `;
 
@@ -16,6 +23,7 @@ const TopicP = styled.p`
   color: white;
   &:hover {
     text-shadow: 0 0 1px white;
+    animation: ${rock} 1s 0s both;
   }
 `;
 

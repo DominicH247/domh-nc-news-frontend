@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import * as api from "../utils/api";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import arrow from "../images/up-clear-white.png";
 import arrowActive from "../images/arrow-solid-white.png";
 import CommentIcon from "../images/comment-clear-white.png";
@@ -9,6 +9,20 @@ const VoterContainer = styled.div`
   display: flex;
   margin-top: 10px;
   padding-bottom: 10px;
+`;
+
+const rockUpArrow = keyframes`
+  0%{ transform: rotate(0deg)};
+  25%{transform: rotate(25deg)}
+  50%{transform: rotate(-25deg)}
+  100%{transform: rotate(0deg)};
+`;
+
+const rockDownArrow = keyframes`
+  0%{ transform: rotate(180deg)};
+  25%{transform: rotate(205deg)}
+  50%{transform: rotate(155deg)}
+  100%{transform: rotate(180deg)};
 `;
 
 const UpVoteBtn = styled.button`
@@ -21,6 +35,9 @@ const UpVoteBtn = styled.button`
   background-color: transparent;
   border: none;
   color: transparent;
+  &:hover {
+    animation: ${rockUpArrow} 1s 0s both;
+  }
 `;
 
 const DownVoteBtn = styled.button`
@@ -34,6 +51,9 @@ const DownVoteBtn = styled.button`
   background-color: transparent;
   border: none;
   color: transparent;
+  &:hover {
+    animation: ${rockDownArrow} 1s 0s both;
+  }
 `;
 
 const Votes = styled.p`
