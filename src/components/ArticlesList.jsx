@@ -75,6 +75,25 @@ const SortByFormSelect = styled.select`
   color: white;
 `;
 
+const NoArticlesP = styled.p`
+  color: white;
+  text-align: center;
+  grid-area: 5/3/6/4;
+`;
+
+const RefreshListButton = styled.button`
+  grid-area: 6/3/7/4;
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  border: solid 1px #376b7b;
+  border-radius: 5px;
+  padding-top: 5px;
+  color: white;
+  background-color: #376b7b;
+  font-family: Spartan;
+`;
+
 class ArticlesList extends Component {
   state = {
     articles: [],
@@ -177,9 +196,18 @@ class ArticlesList extends Component {
                 </SortByFormLabel>
               </SortByForm>
 
-              {this.state.articles.map(article => {
-                return <ArticleCard key={article.article_id} {...article} />;
-              })}
+              {this.state.articles.length !== 0 ? (
+                this.state.articles.map(article => {
+                  return <ArticleCard key={article.article_id} {...article} />;
+                })
+              ) : (
+                <>
+                  <NoArticlesP>No articles found</NoArticlesP>
+                  <RefreshListButton onClick={this.componentDidMount}>
+                    refresh
+                  </RefreshListButton>
+                </>
+              )}
             </MainStyled>
           );
         }}

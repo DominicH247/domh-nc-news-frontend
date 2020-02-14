@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "@reach/router";
 import * as api from "../utils/api";
 import styled from "styled-components";
 import TopicCard from "../components/TopicCard";
@@ -62,6 +63,9 @@ class TopicsList extends Component {
     ) : (
       <MainStyled>
         <MainListH1>Topics</MainListH1>
+        <Link to="/">
+          <button>All</button>
+        </Link>
 
         {topics.map(topic => {
           return (
