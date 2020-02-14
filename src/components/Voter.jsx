@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as api from "../utils/api";
 import styled from "styled-components";
-import arrow from "/home/domh/projects/northcoders/frontend/review/domh-nc-news-frontend/src/images/up-clear-white.png";
+import arrow from "../images/up-clear-white.png";
 import CommentIcon from "../images/comment-clear-white.png";
 
 const VoterContainer = styled.div`
