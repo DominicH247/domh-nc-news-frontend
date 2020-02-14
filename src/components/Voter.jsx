@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import * as api from "../utils/api";
 import styled from "styled-components";
 import arrow from "../images/up-clear-white.png";
+import arrowActive from "../images/arrow-solid-white.png";
 import CommentIcon from "../images/comment-clear-white.png";
 
 const VoterContainer = styled.div`
@@ -11,7 +12,7 @@ const VoterContainer = styled.div`
 `;
 
 const UpVoteBtn = styled.button`
-  background-image: url(${arrow});
+  background-image: url(${props => props.arrow});
   height: 20px;
   width: 20px;
   background-size: 20px;
@@ -23,7 +24,7 @@ const UpVoteBtn = styled.button`
 `;
 
 const DownVoteBtn = styled.button`
-  background-image: url(${arrow});
+  background-image: url(${props => props.arrow});
   transform: rotate(180deg);
   height: 20px;
   width: 20px;
@@ -72,6 +73,7 @@ class Voter extends Component {
     return (
       <VoterContainer>
         <UpVoteBtn
+          arrow={this.state.optimisticVotes > 0 ? arrowActive : arrow}
           onClick={() => {
             this.handleClick(+1);
           }}
@@ -83,6 +85,7 @@ class Voter extends Component {
         <Votes>{this.props.votes + this.state.optimisticVotes}</Votes>
 
         <DownVoteBtn
+          arrow={this.state.optimisticVotes < 0 ? arrowActive : arrow}
           onClick={() => {
             this.handleClick(-1);
           }}
