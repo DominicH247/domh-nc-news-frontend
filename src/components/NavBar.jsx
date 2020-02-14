@@ -5,6 +5,20 @@ import { ThemeContext } from "../contexts/ThemeContext";
 
 //COMPONENT STYLING
 
+const HomeP = styled.p`
+  color: white;
+  &:hover {
+    text-shadow: 0 0 1px white;
+  }
+`;
+
+const TopicP = styled.p`
+  color: white;
+  &:hover {
+    text-shadow: 0 0 1px white;
+  }
+`;
+
 const Navigation = styled.nav`
   @media only screen and (min-width: 601px) {
     /* DESKTOP */
@@ -27,10 +41,10 @@ const NavBar = () => {
   return (
     <Navigation>
       <Link to="/">
-        <p>Home</p>
+        <HomeP>Home</HomeP>
       </Link>
       <Link to="/topics">
-        <p>Topics</p>
+        <TopicP>Topics</TopicP>
       </Link>
     </Navigation>
   );
