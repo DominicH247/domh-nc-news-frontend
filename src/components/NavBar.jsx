@@ -43,6 +43,8 @@ const Navigation = styled.nav`
   color: white;
   display: flex;
   justify-content: space-around;
+  box-shadow: 0 8px 6px -3px #292929;
+  z-index: 1;
 `;
 
 const NavBar = () => {

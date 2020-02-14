@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+const PostCommentForm = styled.form`
+  align-items: center;
+`;
+
 const PostCommentSection = styled.section`
   /* MOBILE */
   text-align: center;
@@ -10,15 +14,26 @@ const PostCommentSection = styled.section`
   border-radius: 10px;
 `;
 
-const CommentInput = styled.input`
+const CommentInput = styled.textarea`
   /* MOBILE */
   margin-left: 10px;
   margin-right: 10px;
+  padding-top: 5px;
   padding-left: 10px;
   border-radius: 5px;
   height: 2em;
   border-color: black;
   background-color: #ede9e9;
+  font-family: Spartan;
+  vertical-align: middle;
+
+  &:focus {
+    height: 500px;
+    width: 700px;
+    padding-bottom: 0;
+    padding-left: 10px;
+    line-height: 1em;
+  }
 `;
 
 const CommentFormLabel = styled.label`
@@ -59,7 +74,7 @@ class PostComment extends Component {
     return (
       <PostCommentSection>
         {this.props.isLoggedIn ? (
-          <form onSubmit={this.handleSubmit}>
+          <PostCommentForm onSubmit={this.handleSubmit}>
             <CommentFormLabel>
               {/* INPUT TO FILL PAGE */}
               Comment:
@@ -67,10 +82,11 @@ class PostComment extends Component {
                 onChange={this.handleChange}
                 value={this.state.userInput}
                 placeholder="Your comment"
+                required={true}
               />
             </CommentFormLabel>
             <CommentFormButton>Post comment</CommentFormButton>
-          </form>
+          </PostCommentForm>
         ) : (
           <div>Please sign in to comment</div>
         )}
