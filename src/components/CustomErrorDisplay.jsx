@@ -22,9 +22,15 @@ const ErrImg = styled.div`
 
 const CustomErrorDisplay = ({ msg, status }) => {
   console.log(status);
+
+  const errorImg = {
+    404: "https://image.flaticon.com/icons/svg/2298/2298239.svg",
+    400: "https://image.flaticon.com/icons/svg/812/812867.svg"
+  };
+
   return (
     <ErrorSection>
-      <ErrImg icon="https://image.flaticon.com/icons/svg/2298/2298239.svg"></ErrImg>
+      <ErrImg icon={errorImg[status]}></ErrImg>
       <p>{msg}!</p>
     </ErrorSection>
   );

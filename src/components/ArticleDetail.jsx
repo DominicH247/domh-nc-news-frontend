@@ -194,6 +194,7 @@ class ArticleDetail extends Component {
         });
       })
       .catch(({ response }) => {
+        console.log(response, "<<<");
         if (response) {
           this.setState(currentState => {
             return {
@@ -244,7 +245,8 @@ class ArticleDetail extends Component {
       article_id
     } = this.state.article;
 
-    if (this.state.error.active && this.state.error.status === 404) {
+    // this.state.error.active && this.state.error.status === 404
+    if (this.state.error.active) {
       return <CustomErrorDisplay {...this.state.error} />;
     }
 
