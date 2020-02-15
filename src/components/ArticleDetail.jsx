@@ -12,16 +12,18 @@ import * as utils from "../utils/index";
 // COMPONENT STYLING
 
 const ArticleDetailContainer = styled.section`
-  @media only screen and (min-width: 601px) {
+  @media only screen and (min-width: 651px) {
     display: grid;
-    grid-template-columns: auto 50% auto;
+    grid-template-columns: auto 75% auto;
     grid-template-rows: auto;
     grid-row-gap: 10px;
     width: 100vw;
   }
+
   /* MOBILE */
-  padding: 10px 30px;
+  padding: 15px 15px;
   color: white;
+  width: 100vw;
 `;
 
 const ArticleDetailStylingDiv = styled.div`
@@ -40,19 +42,17 @@ const DetailBodyP = styled.p`
 `;
 
 const CommentContainerDiv = styled.section`
-  @media only screen and (min-width: 601px) {
+  @media only screen and (min-width: 651px) {
     display: grid;
-    grid-template-columns: auto 50% auto;
+    grid-template-columns: auto 0.75fr auto;
     grid-template-rows: auto;
     grid-row-gap: 10px;
     width: 100vw;
-
     margin: 0;
   }
   color: white;
-  padding-top: 20px;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin: 0;
+  width: 100vw;
 `;
 
 const PostCommentContainerDiv = styled.div`
