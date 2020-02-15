@@ -1,68 +1,102 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## NC-News - Frontend
 
-## Available Scripts
+This is a repo for the React powered frontend application which serves news content from the [domh-nc-news Rest API](https://domh-be-nc-news.herokuapp.com/api/).
 
-In the project directory, you can run:
+The Github repo to the backend API can be found [here](https://github.com/DominicH247/news-app).
 
-### `npm start`
+## Available functionality
 
-Runs the app in the development mode.<br />
+The user can:
+
+1. view a list of all posted articles
+2. view a page for each topic with a list of related articles.
+3. view an individual article.
+4. view an individual article's comments.
+5. sort articles by:
+   - date created
+   - comment_count
+   - votes
+6. post a new comment to an existing article (as a default logged in user).
+7. delete own comments (as a default logged in user).
+8. vote on an article and immediately see the change.
+9. vote on a comment and immediately see the change.
+
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+This application was created using React v16.12.0 on Node v13.7.0.
+
+Clone the repo and install the required dependencies:
+
+```
+$ git clone https://github.com/DominicH247/domh-nc-news-frontend.git
+$ cd PROJECT
+$ npm install
+```
+
+## Start and watch
+
+To start and watch the application in development mode :
+
+```
+$ npm start
+```
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Simple build for production
 
-### `npm test`
+Bundles React in production mode and optimizes the build for the best performance.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+$ npm run build
+```
 
-### `npm run build`
+## Run tests
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Launches the Jest test runner in the interactive watch mode. Which can be used for testing the util functions.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```
+$ npm test-utils
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Update sources
 
-### `npm run eject`
+Some packages usages might change so you should run npm prune & npm install often. A common way to update is by doing:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+$ git pull
+$ npm prune
+$ npm install
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Or you can you use the command:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+$ npm run pull
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Languages and tools
 
-## Learn More
+### HTML
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- HTML 5
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Javascript
 
-### Code Splitting
+- React for the UI
+- Axios - HTTP client for making requests to the API
+- Jest - util function testing
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### CSS
 
-### Analyzing the Bundle Size
+- styled-components
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## Version
 
-### Making a Progressive Web App
+This application is currently at version 0.1.0. For the versions available, see the [tags on this repository](https://github.com/DominicH247/news-app/releases).
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+## Authors
 
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- **[Dominic Hui](https://github.com/DominicH247)**
