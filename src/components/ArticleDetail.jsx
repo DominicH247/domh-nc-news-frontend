@@ -244,7 +244,18 @@ class ArticleDetail extends Component {
       article_id
     } = this.state.article;
 
-    // this.state.error.active && this.state.error.status === 404
+    setTimeout(() => {
+      if (this.state.isLoading === true) {
+        this.setState({
+          error: {
+            status: "Network",
+            msg: "Please check your connection",
+            active: true
+          }
+        });
+      }
+    }, 20000);
+
     if (this.state.error.active) {
       return <CustomErrorDisplay {...this.state.error} />;
     }
