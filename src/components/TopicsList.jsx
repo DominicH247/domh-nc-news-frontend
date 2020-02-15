@@ -65,7 +65,7 @@ class TopicsList extends Component {
     const { topics } = this.state;
 
     if (this.state.isLoading) {
-      return <Loading />; // TO MAKE COMPONENT
+      return <Loading />;
     }
 
     return this.props.path === "/topics" && width > 601 ? (

@@ -7,6 +7,7 @@ import TopicsList from "./TopicsList";
 import { ThemeContext } from "../contexts/ThemeContext";
 import SearchBar from "./SearchBar";
 import Loading from "./Loading";
+import CustomErrorDisplay from "./CustomErrorDisplay";
 
 // COMPONENT STYLING
 
@@ -98,8 +99,12 @@ class ArticlesList extends Component {
   state = {
     articles: [],
     query: { sortBy: undefined, order: "asc" },
-    isLoading: true,
-    error: false
+    error: {
+      status: "",
+      msg: "",
+      active: false
+    },
+    isLoading: true
   };
 
   componentDidMount = () => {
@@ -147,8 +152,16 @@ class ArticlesList extends Component {
           console.log(this.state);
         });
       })
-      .catch(error => {
-        console.log(error);
+      .catch(({ response }) => {
+        if (response) {
+          this.setState({
+            error: {
+              status: response.status,
+              msg: response.data.msg,
+              active: true
+            }
+          });
+        }
       });
   };
 
@@ -167,6 +180,9 @@ class ArticlesList extends Component {
   };
 
   render() {
+    if (this.state.error.active) {
+      return <CustomErrorDisplay {...this.state.error} />;
+    }
     return (
       <ThemeContext.Consumer>
         {context => {

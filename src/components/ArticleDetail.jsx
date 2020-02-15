@@ -223,7 +223,6 @@ class ArticleDetail extends Component {
           this.setState(currentState => {
             return {
               error: {
-                ...currentState.error,
                 status: response.status,
                 msg: response.data.msg,
                 active: !currentState.error.active
