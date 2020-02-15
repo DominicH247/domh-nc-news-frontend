@@ -5,6 +5,7 @@ import styled from "styled-components";
 import TopicCard from "../components/TopicCard";
 import { ThemeContext } from "../contexts/ThemeContext";
 import Loading from "./Loading";
+import CustomErrorDisplay from "./CustomErrorDisplay";
 
 const MainStyledDesktop = styled.main`
   width: 80vw;
@@ -49,6 +50,11 @@ const AllArticlesButton = styled.button`
 class TopicsList extends Component {
   state = {
     topics: [],
+    error: {
+      status: "",
+      msg: "",
+      active: false
+    },
     isLoading: true
   };
 
@@ -63,6 +69,22 @@ class TopicsList extends Component {
   render() {
     const { width } = this.context;
     const { topics } = this.state;
+
+    setTimeout(() => {
+      if (this.state.isLoading === true) {
+        this.setState({
+          error: {
+            status: "Network",
+            msg: "Please check your connection",
+            active: true
+          }
+        });
+      }
+    }, 20000);
+
+    if (this.state.error.active) {
+      return <CustomErrorDisplay {...this.state.error} />;
+    }
 
     if (this.state.isLoading) {
       return <Loading />;
