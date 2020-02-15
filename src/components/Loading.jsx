@@ -11,7 +11,7 @@ const LoadingDiv = styled.div`
 const override = css`
   display: block;
   margin: 0 auto;
-  border-color: red;
+  border-color: white;
 `;
 
 class Loading extends Component {
@@ -25,7 +25,7 @@ class Loading extends Component {
         <CircleLoader
           css={override}
           size={150}
-          color={"#123abc"}
+          color={"white"}
           loading={this.state.loading}
         />
       </LoadingDiv>
