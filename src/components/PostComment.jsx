@@ -27,6 +27,7 @@ const CommentInput = styled.textarea`
   font-family: Spartan;
   vertical-align: middle;
   resize: none;
+  width: 30%;
 
   &:focus {
     height: 500px;
