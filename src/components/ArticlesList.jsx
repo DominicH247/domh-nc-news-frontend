@@ -180,9 +180,22 @@ class ArticlesList extends Component {
   };
 
   render() {
+    setTimeout(() => {
+      if (this.state.isLoading === true) {
+        this.setState({
+          error: {
+            status: "Network",
+            msg: "Please check your connection",
+            active: true
+          }
+        });
+      }
+    }, 20000);
+
     if (this.state.error.active) {
       return <CustomErrorDisplay {...this.state.error} />;
     }
+
     return (
       <ThemeContext.Consumer>
         {context => {
