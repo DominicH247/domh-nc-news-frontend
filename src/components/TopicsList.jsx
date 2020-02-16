@@ -8,8 +8,10 @@ import Loading from "./Loading";
 import CustomErrorDisplay from "./CustomErrorDisplay";
 
 const MainStyledDesktop = styled.main`
-  width: 80vw;
-  margin-left: 80%;
+  margin: 0;
+  padding-left: 100%;
+  padding-right: 100%;
+  width: 100vw;
 `;
 
 const MainStyled = styled.main`
@@ -23,11 +25,7 @@ const MainStyled = styled.main`
 `;
 
 const MainListH1 = styled.h1`
-  @media only screen and (min-width: 601px) {
-    margin-bottom: 77px;
-  }
-
-  /* MOBILE */
+  margin-bottom: 20px;
   text-align: center;
   color: white;
 `;
