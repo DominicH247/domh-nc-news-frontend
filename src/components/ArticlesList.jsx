@@ -171,12 +171,11 @@ class ArticlesList extends Component {
           "author"
         );
 
-        this.setState(
-          { articles: formattedArticles, topics, isLoading: false },
-          () => {
-            console.log(this.state);
-          }
-        );
+        this.setState({
+          articles: formattedArticles,
+          topics,
+          isLoading: false
+        });
       })
       .catch(({ response }) => {
         if (response) {
@@ -206,12 +205,9 @@ class ArticlesList extends Component {
   };
 
   handlePostArticleClick = () => {
-    this.setState(
-      currentState => {
-        return { postArticle: !currentState.postArticle };
-      },
-      () => console.log(this.state)
-    );
+    this.setState(currentState => {
+      return { postArticle: !currentState.postArticle };
+    });
   };
 
   handlePostNewArticle = ({ username, topic, title, body }) => {
@@ -223,7 +219,7 @@ class ArticlesList extends Component {
             articles: [article, ...currentState.articles],
             postArticle: false
           };
-        }, console.log(this.state.articles));
+        });
       });
   };
 

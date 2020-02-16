@@ -200,7 +200,6 @@ class ArticleDetail extends Component {
         });
       })
       .catch(({ response }) => {
-        console.log(response, "<<<");
         if (response) {
           this.setState(currentState => {
             return {

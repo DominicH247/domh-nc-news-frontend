@@ -70,9 +70,7 @@ class PostArticle extends Component {
   };
 
   handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value, username: this.props.username }, () =>
-      console.log(this.state)
-    );
+    this.setState({ [name]: value, username: this.props.username });
   };
 
   handleSubmit = event => {

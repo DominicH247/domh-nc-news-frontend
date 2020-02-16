@@ -81,14 +81,9 @@ class Voter extends Component {
   handleClick = value => {
     api.patchVotes(this.props.id, value, this.props.type);
 
-    this.setState(
-      currentState => {
-        return { optimisticVotes: currentState.optimisticVotes + value };
-      },
-      () => {
-        console.log(this.state);
-      }
-    );
+    this.setState(currentState => {
+      return { optimisticVotes: currentState.optimisticVotes + value };
+    });
   };
   render() {
     return (
