@@ -11,7 +11,7 @@ import ErrDisplayer from "./components/ErrDisplayer";
 import UserLogInContextProvider from "./contexts/UserLogInContext";
 import ThemeContextProvider from "./contexts/ThemeContext";
 
-const App = () => {
+const App = props => {
   return (
     <UserLogInContextProvider>
       <ThemeContextProvider>

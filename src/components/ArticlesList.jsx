@@ -5,9 +5,12 @@ import * as api from "../utils/api";
 import * as utils from "../utils/index";
 import TopicsList from "./TopicsList";
 import { ThemeContext } from "../contexts/ThemeContext";
+import { UserLogInContext } from "../contexts/UserLogInContext";
 import SearchBar from "./SearchBar";
 import Loading from "./Loading";
 import CustomErrorDisplay from "./CustomErrorDisplay";
+
+import PostArticle from "./PostArticle";
 
 // COMPONENT STYLING
 
@@ -95,16 +98,33 @@ const RefreshListButton = styled.button`
   font-family: Spartan;
 `;
 
+const PostArticleContainer = styled.div`
+  grid-column: 3/4;
+`;
+
+const PostArticleButton = styled.button`
+  grid-area: 4/3/5/4;
+  text-align: center;
+  border: solid 1px #376b7b;
+  border-radius: 5px;
+  padding-top: 5px;
+  color: white;
+  background-color: #376b7b;
+  font-family: Spartan;
+`;
+
 class ArticlesList extends Component {
   state = {
     articles: [],
+    topics: [],
     query: { sortBy: undefined, order: "asc" },
     error: {
       status: "",
       msg: "",
       active: false
     },
-    isLoading: true
+    isLoading: true,
+    postArticle: false
   };
 
   componentDidMount = () => {
@@ -116,10 +136,15 @@ class ArticlesList extends Component {
     if (prevProps.slug !== this.props.slug) {
       this.fetchArticlesTopicsUsers(this.props);
     }
+
     if (
       prevState.query.sortBy !== this.state.query.sortBy ||
       prevState.query.order !== this.state.query.order
     ) {
+      this.fetchArticlesTopicsUsers();
+    }
+
+    if (prevState.articles.length !== this.state.articles.length) {
       this.fetchArticlesTopicsUsers();
     }
   };
@@ -148,9 +173,12 @@ class ArticlesList extends Component {
           "author"
         );
 
-        this.setState({ articles: formattedArticles, isLoading: false }, () => {
-          console.log(this.state);
-        });
+        this.setState(
+          { articles: formattedArticles, topics, isLoading: false },
+          () => {
+            console.log(this.state);
+          }
+        );
       })
       .catch(({ response }) => {
         if (response) {
@@ -179,6 +207,28 @@ class ArticlesList extends Component {
     this.setState({ articles: filteredArticles });
   };
 
+  handlePostArticleClick = () => {
+    this.setState(
+      currentState => {
+        return { postArticle: !currentState.postArticle };
+      },
+      () => console.log(this.state)
+    );
+  };
+
+  handlePostNewArticle = ({ username, topic, title, body }) => {
+    api
+      .insertNewArticle(username, topic, title, body)
+      .then(({ data: { article } }) => {
+        this.setState(currentState => {
+          return {
+            articles: [article, ...currentState.articles],
+            postArticle: false
+          };
+        }, console.log(this.state.articles));
+      });
+  };
+
   render() {
     setTimeout(() => {
       if (this.state.isLoading === true) {
@@ -197,50 +247,74 @@ class ArticlesList extends Component {
     }
 
     return (
-      <ThemeContext.Consumer>
-        {context => {
-          const { width } = context;
-          if (this.state.isLoading) {
-            return <Loading />;
-          }
-
+      <UserLogInContext.Consumer>
+        {userContext => {
+          const { username, isLoggedIn } = userContext;
           return (
-            <MainStyled>
-              {width > 601 && <TopicsList slug={this.props.slug} />}
+            //THEME START
+            <ThemeContext.Consumer>
+              {context => {
+                const { width } = context;
+                if (this.state.isLoading) {
+                  return <Loading />;
+                }
 
-              <MainListH1>Articles </MainListH1>
-              <SearchBar applySearchFilter={this.applySearchFilter} />
-              <SortByForm>
-                <SortByFormLabel>
-                  Sort-by:
-                  <SortByFormSelect
-                    id="sortBy"
-                    onChange={this.handleChange}
-                    value={this.state.query.sortBy}
-                  >
-                    <option value="created_at">created at</option>
-                    <option value="comment_count">comments</option>
-                    <option value="votes">votes</option>
-                  </SortByFormSelect>
-                </SortByFormLabel>
-              </SortByForm>
+                return (
+                  <MainStyled>
+                    {width > 601 && <TopicsList slug={this.props.slug} />}
+                    <MainListH1>Articles </MainListH1>
 
-              {this.state.articles.length !== 0 ? (
-                this.state.articles.map(article => {
-                  return <ArticleCard key={article.article_id} {...article} />;
-                })
-              ) : (
-                <>
-                  <NoArticlesP>No articles found</NoArticlesP>
-                  <RefreshListButton onClick={this.componentDidMount}>
-                    refresh
-                  </RefreshListButton>
-                </>
-              )}
-            </MainStyled>
+                    <PostArticleButton onClick={this.handlePostArticleClick}>
+                      Create new article
+                    </PostArticleButton>
+
+                    <SearchBar applySearchFilter={this.applySearchFilter} />
+                    <SortByForm>
+                      <SortByFormLabel>
+                        Sort-by:
+                        <SortByFormSelect
+                          id="sortBy"
+                          onChange={this.handleChange}
+                          value={this.state.query.sortBy}
+                        >
+                          <option value="created_at">created at</option>
+                          <option value="comment_count">comments</option>
+                          <option value="votes">votes</option>
+                        </SortByFormSelect>
+                      </SortByFormLabel>
+                    </SortByForm>
+
+                    {this.state.postArticle ? (
+                      <PostArticleContainer>
+                        <PostArticle
+                          username={username}
+                          isLoggedIn={isLoggedIn}
+                          handlePostNewArticle={this.handlePostNewArticle}
+                          topics={this.state.topics}
+                        />
+                      </PostArticleContainer>
+                    ) : this.state.articles.length !== 0 ? (
+                      this.state.articles.map(article => {
+                        return (
+                          <ArticleCard key={article.article_id} {...article} />
+                        );
+                      })
+                    ) : (
+                      <>
+                        <NoArticlesP>No articles found</NoArticlesP>
+                        <RefreshListButton onClick={this.componentDidMount}>
+                          refresh
+                        </RefreshListButton>
+                      </>
+                    )}
+                  </MainStyled>
+                );
+              }}
+            </ThemeContext.Consumer>
+            // THEME END
           );
         }}
-      </ThemeContext.Consumer>
+      </UserLogInContext.Consumer>
     );
   }
 }

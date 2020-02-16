@@ -71,6 +71,15 @@ const getUserByUsername = username => {
     });
 };
 
+const insertNewArticle = (username, topic, title, body) => {
+  return axios.post(`https://domh-be-nc-news.herokuapp.com/api/articles`, {
+    username,
+    topic,
+    title,
+    body
+  });
+};
+
 module.exports = {
   getAllTopics,
   getArticles,
@@ -80,5 +89,6 @@ module.exports = {
   postComment,
   deleteComment,
   getAllUsers,
-  getUserByUsername
+  getUserByUsername,
+  insertNewArticle
 };
