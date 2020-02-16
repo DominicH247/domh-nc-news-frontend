@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import * as api from "../utils/api";
-import styled from "styled-components";
 import Voter from "./Voter";
 import CommentCard from "./CommentCard";
 import PostComment from "./PostComment";
@@ -8,123 +7,21 @@ import { UserLogInContext } from "../contexts/UserLogInContext";
 import CustomErrorDisplay from "./CustomErrorDisplay";
 import Loading from "./Loading";
 import * as utils from "../utils/index";
-
-// COMPONENT STYLING
-
-const ArticleDetailContainer = styled.section`
-  @media only screen and (min-width: 651px) {
-    display: grid;
-    grid-template-columns: auto 75% auto;
-    grid-template-rows: auto;
-    grid-row-gap: 10px;
-    width: 100vw;
-  }
-
-  /* MOBILE */
-  padding: 15px 15px;
-  color: white;
-  width: 100vw;
-`;
-
-const ArticleDetailStylingDiv = styled.div`
-  grid-column-start: 2;
-  background-color: #376b7b;
-  border: solid #376b7b;
-  border-radius: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-`;
-
-const DetailBodyP = styled.p`
-  grid-area: 3/2/4/3;
-  margin-top: 0;
-  margin-bottom: 0;
-`;
-
-const CommentContainerDiv = styled.section`
-  @media only screen and (min-width: 651px) {
-    display: grid;
-    grid-template-columns: auto 0.75fr auto;
-    grid-template-rows: auto;
-    grid-row-gap: 10px;
-    width: 100vw;
-    margin: 0;
-  }
-  color: white;
-  margin: 0;
-  width: 100vw;
-`;
-
-const PostCommentContainerDiv = styled.div`
-  grid-area: 1/2/2/3;
-  margin-left: 13px;
-  margin-right: 13px;
-`;
-
-const CommentCardContainerDiv = styled.div`
-  grid-area: 2/2/3/3;
-  color: white;
-  margin-left: 25px;
-  margin-right: 25px;
-`;
-
-const CommentErrorP = styled.section`
-  text-align: center;
-  margin-top: 20px;
-  padding-top: 7px;
-  padding-bottom: 5px;
-  border-radius: 5px;
-  background: rgba(184, 116, 37, 0.8);
-`;
-
-const TopicIconP = styled.p`
-  margin-left: 75px;
-  margin-bottom: 0;
-  margin-top: 25px;
-  font-size: 1.2em;
-`;
-
-const TopicIcon = styled.div`
-  background-image: url(${props => props.topic_icon});
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: left;
-  height: 60px;
-  width: auto;
-  margin-bottom: 10px;
-  grid-area: 1/2/2/3;
-`;
-
-const AuthorIcon = styled.div`
-  grid-area: 2/2/3/3;
-  display: flex;
-  justify-content: flex-start;
-  background-image: url(${props => props.author_icon});
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: left;
-  height: 35px;
-  width: auto;
-  margin-bottom: 10px;
-`;
-
-const AuthorIconP = styled.p`
-  margin-left: 60px;
-  margin-bottom: 0;
-  margin-top: 10px;
-  font-size: 0.8em;
-`;
-
-const DateP = styled.p`
-  margin-bottom: 0;
-  margin-top: 10px;
-  margin-left: 10px;
-  font-size: 0.8em;
-`;
-
-const VoterContainerDiv = styled.div`
-  grid-area: 4/2/5/3;
-`;
+import {
+  ArticleDetailContainer,
+  ArticleDetailStylingDiv,
+  DetailBodyP,
+  CommentContainerDiv,
+  PostCommentContainerDiv,
+  CommentCardContainerDiv,
+  CommentErrorP,
+  TopicIconP,
+  TopicIcon,
+  AuthorIcon,
+  AuthorIconP,
+  DateP,
+  VoterContainerDiv
+} from "../styles/ArticleDetailStyles";
 
 class ArticleDetail extends Component {
   state = {

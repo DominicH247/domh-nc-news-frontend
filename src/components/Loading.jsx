@@ -1,18 +1,6 @@
 import React, { Component } from "react";
-import { css } from "@emotion/core";
-import styled from "styled-components";
 import CircleLoader from "react-spinners/CircleLoader";
-
-const LoadingDiv = styled.div`
-  margin-top: 50px;
-  width: 100vw;
-`;
-
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: white;
-`;
+import { LoadingDiv, override } from "../styles/LoadingStyles";
 
 class Loading extends Component {
   state = {
