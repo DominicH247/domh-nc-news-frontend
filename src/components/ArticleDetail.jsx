@@ -142,6 +142,12 @@ class ArticleDetail extends Component {
     this.fetchArticleById();
   };
 
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.comments.length !== this.state.comments.length) {
+      this.fetchArticleById();
+    }
+  };
+
   fetchCommentsByArticleId = () => {
     api.getCommentsByArticleId(this.props.article_id).then(comments => {
       this.setState({ comments });
