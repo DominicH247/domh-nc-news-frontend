@@ -9,7 +9,6 @@ import { UserLogInContext } from "../contexts/UserLogInContext";
 import SearchBar from "./SearchBar";
 import Loading from "./Loading";
 import CustomErrorDisplay from "./CustomErrorDisplay";
-
 import PostArticle from "./PostArticle";
 
 // COMPONENT STYLING
