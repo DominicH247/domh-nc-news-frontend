@@ -16,9 +16,9 @@ import {
   SortByFormLabel,
   SortByFormSelect,
   NoArticlesP,
-  RefreshListButton,
   PostArticleContainer,
-  PostArticleButton
+  PostArticleButton,
+  ResetSearchButton
 } from "../styles/ArticleListStyles";
 
 class ArticlesList extends Component {
@@ -31,6 +31,7 @@ class ArticlesList extends Component {
       msg: "",
       active: false
     },
+    filtering: false,
     isLoading: true,
     postArticle: false
   };
@@ -52,7 +53,10 @@ class ArticlesList extends Component {
       this.fetchArticlesTopicsUsers();
     }
 
-    if (prevState.articles.length !== this.state.articles.length) {
+    if (
+      prevState.articles.length !== this.state.articles.length &&
+      this.state.filtering === false
+    ) {
       this.fetchArticlesTopicsUsers();
     }
   };
@@ -111,7 +115,7 @@ class ArticlesList extends Component {
       return matcherReg.test(article.title);
     });
 
-    this.setState({ articles: filteredArticles });
+    this.setState({ articles: filteredArticles, filtering: true });
   };
 
   handlePostArticleClick = () => {
@@ -131,6 +135,11 @@ class ArticlesList extends Component {
           };
         });
       });
+  };
+
+  handleSearchResetClick = () => {
+    this.fetchArticlesTopicsUsers();
+    this.setState({ filtering: false });
   };
 
   render() {
@@ -188,6 +197,12 @@ class ArticlesList extends Component {
                       Create new article
                     </PostArticleButton>
 
+                    {this.state.filtering && (
+                      <ResetSearchButton onClick={this.handleSearchResetClick}>
+                        Refresh article list
+                      </ResetSearchButton>
+                    )}
+
                     {this.state.postArticle ? (
                       <PostArticleContainer>
                         <PostArticle
@@ -206,9 +221,6 @@ class ArticlesList extends Component {
                     ) : (
                       <>
                         <NoArticlesP>No articles found</NoArticlesP>
-                        <RefreshListButton onClick={this.componentDidMount}>
-                          refresh
-                        </RefreshListButton>
                       </>
                     )}
                   </MainStyled>

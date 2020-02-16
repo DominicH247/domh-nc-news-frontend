@@ -17,8 +17,12 @@ class SearchBar extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.setState({ searchInput: "" });
     this.props.applySearchFilter(this.state.searchInput);
+    this.setState({ searchInput: "" });
+  };
+
+  handleClick = event => {
+    console.log(event.value);
   };
 
   render() {
