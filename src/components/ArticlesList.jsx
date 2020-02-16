@@ -66,11 +66,6 @@ const SortByFormLabel = styled.label`
 `;
 
 const SortByFormSelect = styled.select`
-  @media only screen and (min-width: 600px) {
-    /* DESKTOP */
-    font-size: 1em;
-  }
-
   margin-left: 10px;
   font-family: Spartan;
   border-color: #376b7b;
@@ -108,9 +103,13 @@ const PostArticleButton = styled.button`
   border: solid 1px #376b7b;
   border-radius: 5px;
   padding-top: 5px;
+  margin-bottom: 10px;
   color: white;
   background-color: #376b7b;
   font-family: Spartan;
+  &:hover {
+    box-shadow: 0 0 5px white;
+  }
 `;
 
 class ArticlesList extends Component {
@@ -264,10 +263,6 @@ class ArticlesList extends Component {
                     {width > 601 && <TopicsList slug={this.props.slug} />}
                     <MainListH1>Articles </MainListH1>
 
-                    <PostArticleButton onClick={this.handlePostArticleClick}>
-                      Create new article
-                    </PostArticleButton>
-
                     <SearchBar applySearchFilter={this.applySearchFilter} />
                     <SortByForm>
                       <SortByFormLabel>
@@ -283,6 +278,10 @@ class ArticlesList extends Component {
                         </SortByFormSelect>
                       </SortByFormLabel>
                     </SortByForm>
+
+                    <PostArticleButton onClick={this.handlePostArticleClick}>
+                      Create new article
+                    </PostArticleButton>
 
                     {this.state.postArticle ? (
                       <PostArticleContainer>
