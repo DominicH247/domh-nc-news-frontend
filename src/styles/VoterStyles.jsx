@@ -34,6 +34,9 @@ export const UpVoteBtn = styled.button`
   &:hover {
     animation: ${rockUpArrow} 1s 0s both;
   }
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const DownVoteBtn = styled.button`
@@ -49,6 +52,9 @@ export const DownVoteBtn = styled.button`
   color: transparent;
   &:hover {
     animation: ${rockDownArrow} 1s 0s both;
+  }
+  &:focus {
+    outline: none;
   }
 `;
 
