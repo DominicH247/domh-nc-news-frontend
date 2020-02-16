@@ -116,7 +116,7 @@ const ArticleCard = ({
       <Voter
         votes={votes}
         id={article_id}
-        type={"articles"}
+        type={"comment"}
         comment_count={comment_count}
       />
     </ArticleCardDiv>

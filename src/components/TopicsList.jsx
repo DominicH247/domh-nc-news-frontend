@@ -33,7 +33,6 @@ const MainListH1 = styled.h1`
 `;
 
 const AllArticlesButton = styled.button`
-  justify-content: space-evenly;
   text-align: center;
   border: solid 1px #376b7b;
   border-radius: 5px;
@@ -41,7 +40,8 @@ const AllArticlesButton = styled.button`
   color: white;
   background-color: #376b7b;
   font-family: Spartan;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  width: 100%;
   &:hover {
     box-shadow: 0 0 5px white;
   }

@@ -114,7 +114,8 @@ class Voter extends Component {
         >
           Down Vote
         </DownVoteBtn>
-        {this.props.comment_count && (
+
+        {this.props.type !== "comments" && (
           <CommentCounterContainer>
             {this.props.comment_count}
           </CommentCounterContainer>
