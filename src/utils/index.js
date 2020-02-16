@@ -1,4 +1,4 @@
-const createRef = (array, firstKey, secondKey) => {
+export const createRef = (array, firstKey, secondKey) => {
   const arrayCopy = [...array];
 
   const refObject = {};
@@ -10,7 +10,7 @@ const createRef = (array, firstKey, secondKey) => {
   return refObject;
 };
 
-const formatArticles = (array, refObj1, string1, string2) => {
+export const formatArticles = (array, refObj1, string1, string2) => {
   const arrayCopy = [...array];
 
   const formatted = arrayCopy.map(item => {
@@ -22,5 +22,3 @@ const formatArticles = (array, refObj1, string1, string2) => {
 
   return formatted;
 };
-
-module.exports = { formatArticles, createRef };

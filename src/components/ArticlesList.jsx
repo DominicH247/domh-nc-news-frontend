@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ArticleCard from "./ArticleCard";
 import * as api from "../utils/api";
-import * as utils from "../utils/index";
+import { createRef, formatArticles } from "../utils/index";
 import TopicsList from "./TopicsList";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { UserLogInContext } from "../contexts/UserLogInContext";
@@ -64,17 +64,17 @@ class ArticlesList extends Component {
 
     Promise.all([getArticlesProm, getTopicsProm, getUsersProm])
       .then(([articles, topics, users]) => {
-        const topicRefObj = utils.createRef(topics, "slug", "topic_icon");
-        const userRefObj = utils.createRef(users, "username", "avatar_url");
+        const topicRefObj = createRef(topics, "slug", "topic_icon");
+        const userRefObj = createRef(users, "username", "avatar_url");
 
-        const formattedArticleTopic = utils.formatArticles(
+        const formattedArticleTopic = formatArticles(
           articles,
           topicRefObj,
           "topic_icon",
           "topic"
         );
 
-        const formattedArticles = utils.formatArticles(
+        const formattedArticles = formatArticles(
           formattedArticleTopic,
           userRefObj,
           "avatar_url",
