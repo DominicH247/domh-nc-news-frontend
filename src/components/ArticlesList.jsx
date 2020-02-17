@@ -215,7 +215,13 @@ class ArticlesList extends Component {
                     ) : this.state.articles.length !== 0 ? (
                       this.state.articles.map(article => {
                         return (
-                          <ArticleCard key={article.article_id} {...article} />
+                          <ArticleCard
+                            key={article.article_id}
+                            {...article}
+                            fetchArticlesTopicsUsers={
+                              this.fetchArticlesTopicsUsers
+                            }
+                          />
                         );
                       })
                     ) : (

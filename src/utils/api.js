@@ -80,6 +80,12 @@ const insertNewArticle = (username, topic, title, body) => {
   });
 };
 
+const deleteArticleById = article_id => {
+  return axios.delete(
+    `https://domh-be-nc-news.herokuapp.com/api/articles/${article_id}`
+  );
+};
+
 module.exports = {
   getAllTopics,
   getArticles,
@@ -90,5 +96,6 @@ module.exports = {
   deleteComment,
   getAllUsers,
   getUserByUsername,
-  insertNewArticle
+  insertNewArticle,
+  deleteArticleById
 };

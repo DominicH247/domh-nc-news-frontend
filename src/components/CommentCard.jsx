@@ -35,7 +35,7 @@ const CommentCard = ({
       <Voter votes={votes} id={comment_id} type={type} />
       {author === username && isLoggedIn && (
         <Delete
-          type={type}
+          type={"comment"}
           comment_id={comment_id}
           fetchCommentsByArticleId={fetchCommentsByArticleId}
         />

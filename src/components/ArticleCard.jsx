@@ -21,7 +21,8 @@ const ArticleCard = ({
   comment_count,
   votes,
   topic_icon,
-  avatar_url
+  avatar_url,
+  fetchArticlesTopicsUsers
 }) => {
   const createdAt = new Date(created_at);
 
@@ -52,7 +53,13 @@ const ArticleCard = ({
               comment_count={comment_count}
             />
 
-            {author === username && isLoggedIn && <Delete />}
+            {author === username && isLoggedIn && (
+              <Delete
+                type={"article"}
+                article_id={article_id}
+                fetchArticlesTopicsUsers={fetchArticlesTopicsUsers}
+              />
+            )}
           </ArticleCardDiv>
         );
       }}

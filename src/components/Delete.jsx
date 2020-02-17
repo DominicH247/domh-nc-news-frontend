@@ -7,35 +7,56 @@ class Delete extends Component {
     error: { status: "", msg: "", active: false }
   };
 
-  handleDeleteClick = () => {
-    api
-      .deleteComment(this.props.comment_id)
-      .then(() => {
-        this.props.fetchCommentsByArticleId();
-      })
-      .catch(({ response }) => {
-        if (response) {
-          this.setState({
-            error: {
-              status: response.status,
-              msg: response.data.msg,
-              active: true
-            }
-          });
-        }
-      });
+  handleDeleteClick = ({ target: { name } }) => {
+    if (name === "comment") {
+      api
+        .deleteComment(this.props.comment_id)
+        .then(() => {
+          this.props.fetchCommentsByArticleId();
+        })
+        .catch(({ response }) => {
+          if (response) {
+            this.setState({
+              error: {
+                status: response.status,
+                msg: response.data.msg,
+                active: true
+              }
+            });
+          }
+        });
+    }
+
+    if (name === "article") {
+      api
+        .deleteArticleById(this.props.article_id)
+        .then(() => {
+          this.props.fetchArticlesTopicsUsers();
+        })
+        .catch(({ response }) => {
+          if (response) {
+            this.setState({
+              error: {
+                status: response.status,
+                msg: response.data.msg,
+                active: true
+              }
+            });
+          }
+        });
+    }
   };
 
   render() {
     return (
       <div>
-        <DeleteButton onClick={this.handleDeleteClick}>
-          Delete Comment
+        <DeleteButton onClick={this.handleDeleteClick} name={this.props.type}>
+          Delete {this.props.type}
         </DeleteButton>
         {this.state.error.active && (
           <CustomErrorP>
-            Sorry there was an issue with deleting your comment. Please try
-            again later
+            Sorry there was an issue with deleting your {this.props.type}.
+            Please try again later
           </CustomErrorP>
         )}
       </div>
