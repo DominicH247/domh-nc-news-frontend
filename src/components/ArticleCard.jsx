@@ -9,6 +9,8 @@ import {
   AuthorIconP,
   DateP
 } from "../styles/ArticleCardStyles";
+import Delete from "../components/Delete";
+import { UserLogInContext } from "../contexts/UserLogInContext";
 
 const ArticleCard = ({
   topic,
@@ -26,25 +28,35 @@ const ArticleCard = ({
   const formattedDate = `${createdAt.getDate()}-${createdAt.getMonth()}-${createdAt.getFullYear()}`;
 
   return (
-    <ArticleCardDiv>
-      <Link to={`/articles/${article_id}`}>
-        <TopicIcon topic_icon={topic_icon}>
-          <TopicIconP>t/ {topic}</TopicIconP>
-        </TopicIcon>
-        <AuthorIcon author_icon={avatar_url}>
-          <AuthorIconP>Posted by u/ {author}</AuthorIconP>
-        </AuthorIcon>
-        {title}
-        <br />
-        <DateP>Date: {formattedDate}</DateP>
-      </Link>
-      <Voter
-        votes={votes}
-        id={article_id}
-        type={"comment"}
-        comment_count={comment_count}
-      />
-    </ArticleCardDiv>
+    <UserLogInContext.Consumer>
+      {context => {
+        const { username, isLoggedIn } = context;
+
+        return (
+          <ArticleCardDiv>
+            <Link to={`/articles/${article_id}`}>
+              <TopicIcon topic_icon={topic_icon}>
+                <TopicIconP>t/ {topic}</TopicIconP>
+              </TopicIcon>
+              <AuthorIcon author_icon={avatar_url}>
+                <AuthorIconP>Posted by u/ {author}</AuthorIconP>
+              </AuthorIcon>
+              {title}
+              <br />
+              <DateP>Date: {formattedDate}</DateP>
+            </Link>
+            <Voter
+              votes={votes}
+              id={article_id}
+              type={"comment"}
+              comment_count={comment_count}
+            />
+
+            {author === username && isLoggedIn && <Delete />}
+          </ArticleCardDiv>
+        );
+      }}
+    </UserLogInContext.Consumer>
   );
 };
 

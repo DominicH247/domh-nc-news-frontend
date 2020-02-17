@@ -26,6 +26,10 @@ class PostArticle extends Component {
     this.setState({ title: "", body: "", topic: "", username: "" });
   };
 
+  handleEditorChange = editorState => {
+    this.setState({ editorState });
+  };
+
   render() {
     if (!this.props.isLoggedIn) {
       return (
