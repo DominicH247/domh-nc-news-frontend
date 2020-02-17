@@ -4,6 +4,8 @@ This is a repo for the React powered frontend application which serves news cont
 
 The Github repo to the backend API can be found [here](https://github.com/DominicH247/news-app).
 
+Please visit (https://domh-nc-news.netlify.com/) for a complete working demo of the frontend application.
+
 ## Available functionality
 
 The user can:
